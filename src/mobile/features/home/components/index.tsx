@@ -1,5 +1,5 @@
 import React from 'react'
-import BookingCards from './BookingCards'
+import BookingsToday from './BookingsToday'
 import CartrunkCard from './CartrunkCard'
 import DeliveriesCard from './DeliveriesCard'
 
@@ -10,7 +10,7 @@ const Wrapper: React.FC<any> = (props) => {
   return (
     <>
       Header
-      <BookingCards />
+      <BookingsToday />
       <CartrunkCard />
       <DeliveriesCard />
       Footer

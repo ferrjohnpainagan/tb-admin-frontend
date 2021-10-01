@@ -20,7 +20,7 @@ const Wrapper: React.FC<any> = (props) => {
       case "#login":
         return <Login {...props} />
       default:
-        props.history.push("/auth#login")
+        props.history.push("/admin/auth#login")
     }
   }
 
