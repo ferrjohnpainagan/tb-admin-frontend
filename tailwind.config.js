@@ -14,6 +14,9 @@ module.exports = {
         pinkAccntName: "#CF2548",
       },
     },
+    fill: (theme) => ({
+      active: theme("#402D8B"),
+    }),
   },
   variants: {
     extend: {},
