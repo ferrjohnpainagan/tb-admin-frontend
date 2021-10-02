@@ -12,7 +12,7 @@ const Routes: React.FC<IRoute> = ({
   const [signed, setSigned] = useState(false)
 
   useEffect(() => {
-    setSigned(false)
+    setSigned(true)
   }, [])
 
   /** Redirect user to login page

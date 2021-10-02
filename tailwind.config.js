@@ -10,6 +10,8 @@ module.exports = {
       colors: {
         defaultGray: "#E9E9E9",
         defaultPurple: "#402D8B",
+        defaultPinkBg: "#DFD5DE",
+        pinkAccntName: "#CF2548",
       },
     },
   },
