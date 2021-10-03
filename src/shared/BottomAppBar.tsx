@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router";
 import * as helper from "../utils/helper";
 
 import HomeInactive from "../img/home-inactive.svg";
@@ -11,6 +12,7 @@ import DeliveriesActive from "../img/deliveries-active.svg";
 import DeliveriesInactive from "../img/deliveries-inactive.svg";
 
 const BottomAppBar = () => {
+  const history = useHistory();
   /** Checks if btn is currently active
    *
    * @param {string} current - accepts the name of the btn
@@ -25,11 +27,15 @@ const BottomAppBar = () => {
     <>
       <div className="w-screen h-14 bg-defaultGray absolute bottom-0 flex justify-between items-center px-6">
         <div>
-          <img src={activeLink("home") ? HomeActive : HomeInactive} />
+          <img
+            src={activeLink("home") ? HomeActive : HomeInactive}
+            onClick={() => history.push("/admin/home")}
+          />
         </div>
         <div>
           <img
             src={activeLink("all") ? AllBookingsActive : AllBookingsInactive}
+            onClick={() => history.push("/admin/bookings/all")}
           />
         </div>
         <div>
