@@ -26,28 +26,30 @@ const BottomAppBar = () => {
   return (
     <>
       <div className="w-screen h-14 bg-defaultGray absolute bottom-0 flex justify-between items-center px-6">
-        <div>
+        <div className="w-14 flex justify-center">
           <img
             src={activeLink("home") ? HomeActive : HomeInactive}
             onClick={() => history.push("/admin/home")}
           />
         </div>
-        <div>
+        <div className="w-14 flex justify-center">
           <img
             src={activeLink("all") ? AllBookingsActive : AllBookingsInactive}
             onClick={() => history.push("/admin/bookings/all")}
           />
         </div>
-        <div>
+        <div className="w-14 flex justify-center">
           <img
             src={activeLink("cartrunk") ? CartrunkActive : CartrunkInactive}
+            onClick={() => history.push("/admin/bookings/cartrunk")}
           />
         </div>
-        <div>
+        <div className="w-14 flex justify-center">
           <img
             src={
               activeLink("deliveries") ? DeliveriesActive : DeliveriesInactive
             }
+            onClick={() => history.push("/admin/bookings/deliveries")}
           />
         </div>
       </div>

@@ -5,6 +5,8 @@ import Route from "./Routes";
 import AuthContainer from "../features/auth/containers/Main";
 import HomeContainer from "../features/home/containers/Main";
 import AllBookingsContainer from "../features/allBookings/containers/Main";
+import AllCartrunkContainer from "../features/allCartrunk/containers/Main";
+import AllDeliveriesContainer from "../features/allDeliveries/containers/Main";
 
 const index = () => {
   return (
@@ -27,6 +29,20 @@ const index = () => {
         path="/admin/bookings/all"
         component={AllBookingsContainer}
         name="AllBookings"
+        exact={false}
+        isPrivate={true}
+      />
+      <Route
+        path="/admin/bookings/cartrunk"
+        component={AllCartrunkContainer}
+        name="AllCartrunk"
+        exact={false}
+        isPrivate={true}
+      />
+      <Route
+        path="/admin/bookings/deliveries"
+        component={AllDeliveriesContainer}
+        name="AllDeliveries"
         exact={false}
         isPrivate={true}
       />
