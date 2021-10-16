@@ -11,6 +11,10 @@ import CartrunkInactive from "../img/cartrunk-inactive.svg";
 import DeliveriesActive from "../img/deliveries-active.svg";
 import DeliveriesInactive from "../img/deliveries-inactive.svg";
 
+/** Component for the bottom app bar
+ *
+ * @component
+ */
 const BottomAppBar = () => {
   const history = useHistory();
   /** Checks if btn is currently active
@@ -30,18 +34,21 @@ const BottomAppBar = () => {
           <img
             src={activeLink("home") ? HomeActive : HomeInactive}
             onClick={() => history.push("/admin/home")}
+            alt="home"
           />
         </div>
         <div className="w-14 flex justify-center">
           <img
             src={activeLink("all") ? AllBookingsActive : AllBookingsInactive}
             onClick={() => history.push("/admin/bookings/all")}
+            alt="all"
           />
         </div>
         <div className="w-14 flex justify-center">
           <img
             src={activeLink("cartrunk") ? CartrunkActive : CartrunkInactive}
             onClick={() => history.push("/admin/bookings/cartrunk")}
+            alt="cartrunk"
           />
         </div>
         <div className="w-14 flex justify-center">
@@ -50,6 +57,7 @@ const BottomAppBar = () => {
               activeLink("deliveries") ? DeliveriesActive : DeliveriesInactive
             }
             onClick={() => history.push("/admin/bookings/deliveries")}
+            alt="delivery"
           />
         </div>
       </div>

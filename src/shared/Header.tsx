@@ -25,7 +25,7 @@ const Header = (props: HeaderProps) => {
       <div className="w-screen h-20 px-6 bg-defaultGray flex justify-between items-center">
         {props.showBackBtn ? (
           <div>
-            <img src={BackBtn} />
+            <img src={BackBtn} alt="back-btn" />
           </div>
         ) : null}
         <div className="flex">
@@ -39,7 +39,7 @@ const Header = (props: HeaderProps) => {
           ) : null}
         </div>
         <div className="w-11">
-          <img src={Logo} />
+          <img src={Logo} alt="logo" />
         </div>
       </div>
     </>

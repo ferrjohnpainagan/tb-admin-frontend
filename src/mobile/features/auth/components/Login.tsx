@@ -22,7 +22,7 @@ const Login = () => {
     <>
       <div className="w-screen h-screen bg-defaultGray flex justify-center items-center flex-col">
         <div className="w-2/5">
-          <img src={Logo} />
+          <img src={Logo} alt="logo" />
         </div>
 
         <div className="w-3/4 py-12">

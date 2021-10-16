@@ -12,6 +12,8 @@ module.exports = {
         defaultPurple: "#402D8B",
         defaultPinkBg: "#DFD5DE",
         pinkAccntName: "#CF2548",
+        defaultWhite: "#F5F5F5",
+        defaultBlack: "#656565",
       },
     },
     fill: (theme) => ({
