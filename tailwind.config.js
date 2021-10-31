@@ -20,6 +20,9 @@ module.exports = {
       fontSize: {
         tiny: "10px",
       },
+      fontFamily: {
+        poppins: "'Poppins', serif",
+      },
     },
     fill: (theme) => ({
       active: theme("#402D8B"),
