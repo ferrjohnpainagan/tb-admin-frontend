@@ -9,7 +9,7 @@ import DeliveriesCard from "./DeliveriesCard";
 const Wrapper: React.FC<any> = (props) => {
   return (
     <>
-      <div className=" bg-defaultPinkBg h-screen">
+      <div className=" bg-defaultPinkBg h-screen overflow-scroll">
         <Header
           type={"home"}
           showBackBtn={false}
