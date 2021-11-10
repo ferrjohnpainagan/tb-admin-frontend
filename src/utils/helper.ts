@@ -17,6 +17,7 @@ export const SampleBookings = [
     to: "Jane",
     location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
     amount: 5500,
+    status: "IN PROCESS",
   },
   {
     id: uuidv4(),
@@ -27,6 +28,7 @@ export const SampleBookings = [
     to: "Jane",
     location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
     amount: 5500,
+    status: "DELIVERED",
   },
   {
     id: uuidv4(),
@@ -37,5 +39,6 @@ export const SampleBookings = [
     to: "Jane",
     location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
     amount: 5500,
+    status: "CANCELLED",
   },
 ];

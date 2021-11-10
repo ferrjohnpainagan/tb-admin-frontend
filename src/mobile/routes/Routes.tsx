@@ -7,7 +7,7 @@ const Routes: React.FC<IRoute> = ({
   path,
   isPrivate,
 }) => {
-  const [signed, setSigned] = useState(false);
+  const [signed, setSigned] = useState(true);
 
   useEffect(() => {
     setSigned(true);
@@ -23,8 +23,9 @@ const Routes: React.FC<IRoute> = ({
   /** Redirect user to homepage
    * if user has signed in already
    */
+
   if (signed) {
-    if (path === "/admin/auth" || path === "/") {
+    if (path === "/admin/auth") {
       return <Redirect to="/admin/home" />;
     }
   }

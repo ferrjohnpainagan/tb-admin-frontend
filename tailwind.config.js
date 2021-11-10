@@ -15,7 +15,11 @@ module.exports = {
         pinkAccntName: "#CF2548",
         defaultWhite: "#F5F5F5",
         defaultBlack: "#656565",
+        statusBlue: "#00A7E1",
+        statusGreen: "#7BD389",
+        statusRed: "#FB4B4E",
         purple2: "#AF88BE",
+        purple3: "#A11E6C",
       },
       fontSize: {
         tiny: "10px",

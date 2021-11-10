@@ -29,21 +29,21 @@ const index = () => {
         path="/admin/bookings/all"
         component={AllBookingsContainer}
         name="AllBookings"
-        exact={false}
+        exact={true}
         isPrivate={true}
       />
       <Route
         path="/admin/bookings/cartrunk"
         component={AllCartrunkContainer}
         name="AllCartrunk"
-        exact={false}
+        exact={true}
         isPrivate={true}
       />
       <Route
         path="/admin/bookings/deliveries"
         component={AllDeliveriesContainer}
         name="AllDeliveries"
-        exact={false}
+        exact={true}
         isPrivate={true}
       />
       <Redirect to="/admin/home" exact={true} />
