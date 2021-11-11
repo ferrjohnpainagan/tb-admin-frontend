@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
 
 import Header from "../../../../shared/Header";
 import BottomAppBar from "../../../../shared/BottomAppBar";
@@ -7,17 +8,24 @@ import * as helper from "../../../../utils/helper";
 import { IBookingItem } from "../../../../interfaces";
 
 const Wrapper: React.FC<any> = (props) => {
+    const history = useHistory();
     const [bookingsList, setBookingsList] = useState([]);
     const [datesList, setDatesList] = useState([]);
 
+    /** Handles the grouping of bookings by date */
     const groupBookingsByDate = (list: IBookingItem[]): void => {
         let dates: string[] = [];
+
         list.map((booking) => {
             dates.push(booking.date);
         });
 
         setDatesList([...new Set(dates)]);
         setBookingsList(list);
+    };
+
+    const viewBooking = (booking: IBookingItem) => {
+        history.push("/admin/bookings/details", { data: booking });
     };
 
     useEffect(() => {
@@ -42,10 +50,15 @@ const Wrapper: React.FC<any> = (props) => {
                                 >
                                     {date}
                                 </div>
-                                <div>
-                                    {bookingsList.map((booking, index) => {
-                                        if (booking.date === date) {
-                                            return (
+
+                                {bookingsList.map((booking, index) => {
+                                    if (booking.date === date) {
+                                        return (
+                                            <div
+                                                onClick={() => {
+                                                    viewBooking(booking);
+                                                }}
+                                            >
                                                 <SmallCard
                                                     key={index}
                                                     type={"allBookings"}
@@ -58,12 +71,12 @@ const Wrapper: React.FC<any> = (props) => {
                                                     status={booking.status}
                                                     price={booking.amount}
                                                 />
-                                            );
-                                        } else {
-                                            return;
-                                        }
-                                    })}
-                                </div>
+                                            </div>
+                                        );
+                                    } else {
+                                        return;
+                                    }
+                                })}
                             </div>
                         );
                     })}
