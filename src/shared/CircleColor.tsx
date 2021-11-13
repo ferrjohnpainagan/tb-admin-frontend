@@ -1,7 +1,8 @@
 import React from "react";
 import * as helper from "../utils/helper";
 
-export interface ColorProps {
+interface ColorProps {
+    /** Theme for the package */
     color: string;
 }
 
@@ -11,9 +12,9 @@ export interface ColorProps {
  */
 const CircleColor: React.FC<ColorProps> = ({ color }) => {
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col text-defaultBlack ">
             <div
-                className={`w-5 h-5 rounded-xl mt-2 bg-${helper.parseColorTheme(
+                className={`w-5 h-5 rounded-xl mt-2  bg-${helper.parseColorTheme(
                     color
                 )}`}
             ></div>
