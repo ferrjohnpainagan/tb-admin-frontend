@@ -24,6 +24,7 @@ const Wrapper: React.FC<any> = (props) => {
         setBookingsList(list);
     };
 
+    /** Handles tapping of booking card */
     const viewBooking = (booking: IBookingItem) => {
         history.push("/admin/bookings/details", { data: booking });
     };
@@ -43,11 +44,8 @@ const Wrapper: React.FC<any> = (props) => {
                 <div className="p-4">
                     {datesList.map((date, index) => {
                         return (
-                            <div>
-                                <div
-                                    key={index}
-                                    className="text-defaultBlack text-sm font-poppins tracking-wider"
-                                >
+                            <div key={index}>
+                                <div className="text-defaultBlack text-sm font-poppins tracking-wider">
                                     {date}
                                 </div>
 
@@ -55,12 +53,12 @@ const Wrapper: React.FC<any> = (props) => {
                                     if (booking.date === date) {
                                         return (
                                             <div
+                                                key={index}
                                                 onClick={() => {
                                                     viewBooking(booking);
                                                 }}
                                             >
                                                 <SmallCard
-                                                    key={index}
                                                     type={"allBookings"}
                                                     packageType={
                                                         booking.packageType
@@ -80,7 +78,6 @@ const Wrapper: React.FC<any> = (props) => {
                             </div>
                         );
                     })}
-                    {}
                 </div>
 
                 <BottomAppBar />

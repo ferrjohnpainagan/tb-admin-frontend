@@ -2,49 +2,61 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { IBookingItem } from "../../../../interfaces";
 
+import Cartrunk from "../../../../img/cartrunk-small.svg";
+import Delivery from "../../../../img/delivery-small.svg";
+
 import Header from "../../../../shared/Header";
 import BottomAppBar from "../../../../shared/BottomAppBar";
 import TextLabel from "../../../../shared/TextLabel";
+import TextStatus from "../../../../shared/TextStatus";
+import Loader from "../../../../shared/Loader";
+import CircleColor from "../../../../shared/CircleColor";
+
+interface stateType {
+    data: IBookingItem;
+}
 
 const Wrapper: React.FC<any> = (props) => {
-    interface stateType {
-        data: IBookingItem;
-    }
     const { state } = useLocation<stateType>();
     const [bookingDetails, setBookingDetails] = useState<IBookingItem>();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setBookingDetails(state.data);
+
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
     }, []);
-    return (
+    return loading ? (
+        <Loader />
+    ) : (
         <div className="bg-defaultPinkBg h-screen overflow-scroll">
             <Header type={"deliveries"} showBackBtn={true} title={"Details"} />
 
             <div className="p-4">
                 <div className="">
                     <div className="flex flex-col bg-defaultWhite p-4 rounded-xl">
-                        <div
-                            className={`w-24 h-5 p-1 rounded-2xl flex items-center justify-center font-poppins text-xs font-medium tracking-wider text-defaultWhite mb-2 ${
-                                bookingDetails?.status === "IN PROCESS"
-                                    ? "bg-statusBlue"
-                                    : bookingDetails?.status === "DELIVERED"
-                                    ? "bg-statusGreen"
-                                    : "bg-statusRed"
-                            }`}
-                        >
-                            {bookingDetails?.status}
-                        </div>
+                        <TextStatus status={bookingDetails?.status} />
 
                         <div className="flex justify-between mb-2">
-                            <div className="w-1/2 flex justify-between pr-4">
+                            <div className="w-1/2 flex justify-between pr-8">
                                 <div>
                                     <TextLabel text={"Type"} />
-                                    <div>image</div>
+                                    <div>
+                                        <img
+                                            src={
+                                                bookingDetails?.packageType ===
+                                                "cartrunk"
+                                                    ? Cartrunk
+                                                    : Delivery
+                                            }
+                                        />
+                                    </div>
                                 </div>
                                 <div>
                                     <TextLabel text={"Theme"} />
-
-                                    <div>Color</div>
+                                    <CircleColor color={bookingDetails.theme} />
                                 </div>
                             </div>
                             <div className="w-1/2">
@@ -79,7 +91,6 @@ const Wrapper: React.FC<any> = (props) => {
                     </div>
                 </div>
             </div>
-
             <BottomAppBar />
         </div>
     );

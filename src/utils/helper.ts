@@ -3,8 +3,36 @@ import moment, { Moment } from "moment";
 
 let now: Moment = moment();
 
+/** Gets the current path
+ *
+ * @returns {string} - path
+ */
 export const getPath = (): string => {
     return window.location.href;
+};
+
+export const themeColors = [
+    "themeBlue",
+    "themeRed",
+    "themeGreen",
+    "themePink",
+    "themeGold",
+    "themeOrange",
+    "themeViolet",
+];
+
+/** Parses the theme for the package
+ *
+ * @returns {string} - theme
+ */
+export const parseColorTheme = (color: string) => {
+    let parsedTheme;
+    themeColors.map((theme) => {
+        if (theme.toLowerCase().includes(color)) {
+            parsedTheme = theme;
+        }
+    });
+    return parsedTheme;
 };
 
 export const SampleBookings = [
@@ -18,6 +46,7 @@ export const SampleBookings = [
         location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
         amount: 5500,
         status: "IN PROCESS",
+        theme: "red",
     },
     {
         id: uuidv4(),
@@ -29,6 +58,7 @@ export const SampleBookings = [
         location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
         amount: 5500,
         status: "DELIVERED",
+        theme: "blue",
     },
     {
         id: uuidv4(),
@@ -40,6 +70,7 @@ export const SampleBookings = [
         location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
         amount: 5500,
         status: "CANCELLED",
+        theme: "green",
     },
     {
         id: uuidv4(),
@@ -51,6 +82,7 @@ export const SampleBookings = [
         location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
         amount: 5500,
         status: "IN PROCESS",
+        theme: "gold",
     },
     {
         id: uuidv4(),
@@ -62,5 +94,6 @@ export const SampleBookings = [
         location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
         amount: 5500,
         status: "IN PROCESS",
+        theme: "blue",
     },
 ];

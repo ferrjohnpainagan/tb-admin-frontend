@@ -1,7 +1,8 @@
-import { stat } from "fs";
 import React from "react";
+
 import Cartrunk from "../img/cartrunk-small.svg";
 import Delivery from "../img/delivery-small.svg";
+import TextStatus from "../shared/TextStatus";
 
 interface SmallCardProps {
     /** template type of card to be used */
@@ -48,17 +49,7 @@ const SmallCard: React.FC<SmallCardProps> = ({
                     <div className="p-1 font-poppins text-center font-semibold text-xs text-purple3">
                         Php {price}.00
                     </div>
-                    <div
-                        className={`w-24 h-5 p-1 rounded-2xl flex items-center justify-center font-poppins text-xs font-medium tracking-wider text-defaultWhite ${
-                            status === "IN PROCESS"
-                                ? "bg-statusBlue"
-                                : status === "DELIVERED"
-                                ? "bg-statusGreen"
-                                : "bg-statusRed"
-                        }`}
-                    >
-                        {status}
-                    </div>
+                    <TextStatus status={status} />
                 </div>
             );
         }
