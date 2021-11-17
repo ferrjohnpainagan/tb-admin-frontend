@@ -8,17 +8,17 @@ let now: Moment = moment();
  * @returns {string} - path
  */
 export const getPath = (): string => {
-    return window.location.href;
+  return window.location.href;
 };
 
 export const themeColors = [
-    "themeBlue",
-    "themeRed",
-    "themeGreen",
-    "themePink",
-    "themeGold",
-    "themeOrange",
-    "themeViolet",
+  "themeBlue",
+  "themeRed",
+  "themeGreen",
+  "themePink",
+  "themeGold",
+  "themeOrange",
+  "themeViolet",
 ];
 
 /** Parses the theme for the package
@@ -26,74 +26,79 @@ export const themeColors = [
  * @returns {string} - theme
  */
 export const parseColorTheme = (color: string) => {
-    let parsedTheme;
-    themeColors.map((theme) => {
-        if (theme.toLowerCase().includes(color)) {
-            parsedTheme = theme;
-        }
-    });
-    return parsedTheme;
+  let parsedTheme;
+  themeColors.map((theme) => {
+    if (theme.toLowerCase().includes(color)) {
+      parsedTheme = theme;
+    }
+  });
+  return parsedTheme;
 };
 
 export const SampleBookings = [
-    {
-        id: uuidv4(),
-        date: moment(new Date()).format("MMMM DD, YYYY"),
-        time: now.format("hh:mm:ss a"),
-        packageType: "cartrunk",
-        from: "Master Rigel",
-        to: "Jane",
-        location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
-        amount: 5500,
-        status: "IN PROCESS",
-        theme: "red",
-    },
-    {
-        id: uuidv4(),
-        date: moment(new Date()).format("MMMM DD, YYYY"),
-        time: now.format("hh:mm:ss a"),
-        packageType: "delivery",
-        from: "Master Rigel",
-        to: "Jane",
-        location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
-        amount: 5500,
-        status: "DELIVERED",
-        theme: "blue",
-    },
-    {
-        id: uuidv4(),
-        date: moment(new Date()).format("MMMM DD, YYYY"),
-        time: now.format("hh:mm:ss a"),
-        packageType: "cartrunk",
-        from: "Master Rigel",
-        to: "Jane",
-        location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
-        amount: 5500,
-        status: "CANCELLED",
-        theme: "green",
-    },
-    {
-        id: uuidv4(),
-        date: moment(new Date("11/14/2021")).format("MMMM DD, YYYY"),
-        time: now.format("hh:mm:ss a"),
-        packageType: "delivery",
-        from: "Master Rigel",
-        to: "Jane",
-        location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
-        amount: 5500,
-        status: "IN PROCESS",
-        theme: "gold",
-    },
-    {
-        id: uuidv4(),
-        date: moment(new Date("11/14/2021")).format("MMMM DD, YYYY"),
-        time: now.format("hh:mm:ss a"),
-        packageType: "cartrunk",
-        from: "Master Rigel",
-        to: "Jane",
-        location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
-        amount: 5500,
-        status: "IN PROCESS",
-        theme: "blue",
-    },
+  {
+    id: uuidv4(),
+    date: moment(new Date()).format("MMMM DD, YYYY"),
+    time: now.format("hh:mm:ss a"),
+    packageType: "cartrunk",
+    from: "Master Rigel",
+    to: "Jane",
+    location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
+    amount: 5500,
+    status: "IN PROCESS",
+    theme: "red",
+    referenceNumber: uuidv4().split("-")[0].toUpperCase(),
+  },
+  {
+    id: uuidv4(),
+    date: moment(new Date()).format("MMMM DD, YYYY"),
+    time: now.format("hh:mm:ss a"),
+    packageType: "delivery",
+    from: "Master Rigel",
+    to: "Jane",
+    location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
+    amount: 5500,
+    status: "DELIVERED",
+    theme: "blue",
+    referenceNumber: uuidv4().split("-")[0].toUpperCase(),
+  },
+  {
+    id: uuidv4(),
+    date: moment(new Date()).format("MMMM DD, YYYY"),
+    time: now.format("hh:mm:ss a"),
+    packageType: "cartrunk",
+    from: "Master Rigel",
+    to: "Jane",
+    location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
+    amount: 5500,
+    status: "CANCELLED",
+    theme: "green",
+    referenceNumber: uuidv4().split("-")[0].toUpperCase(),
+  },
+  {
+    id: uuidv4(),
+    date: moment(new Date("11/14/2021")).format("MMMM DD, YYYY"),
+    time: now.format("hh:mm:ss a"),
+    packageType: "delivery",
+    from: "Master Rigel",
+    to: "Jane",
+    location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
+    amount: 5500,
+    status: "IN PROCESS",
+    theme: "gold",
+    referenceNumber: uuidv4().split("-")[0].toUpperCase(),
+  },
+  {
+    id: uuidv4(),
+    date: moment(new Date("11/14/2021")).format("MMMM DD, YYYY"),
+    time: now.format("hh:mm:ss a"),
+    packageType: "cartrunk",
+    from: "Master Rigel",
+    to: "Jane",
+    location: "Lucky 9, Mencidor Avenue, Tagum, 8100 Davao del Norte",
+    amount: 5500,
+    status: "IN PROCESS",
+    theme: "blue",
+    referenceNumber: uuidv4().split("-")[0].toUpperCase(),
+  },
 ];
