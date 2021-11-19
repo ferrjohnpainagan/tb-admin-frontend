@@ -13,6 +13,8 @@ interface HeaderProps {
   title: string;
   /** Account name to be used when at Home component */
   accntName?: string;
+  /** Whether a component is currently loading */
+  loading?: boolean;
 }
 
 /** Reusable Header component
@@ -24,13 +26,26 @@ const Header = (props: HeaderProps) => {
   const history = useHistory();
   return (
     <>
-      <div className="w-screen h-20 px-6  flex justify-between items-center">
+      <div
+        className={`w-screen h-20 px-6 flex justify-between items-center ${
+          props.loading ? "absolute top-0" : ""
+        }`}
+      >
         {props.showBackBtn ? (
           <div>
             <img
               src={BackBtn}
               alt="back-btn"
-              onClick={() => history.goBack()}
+              onClick={() => {
+                if (
+                  props.type === "booking" &&
+                  window.location.href.includes("list")
+                ) {
+                  history.replace("/admin/home");
+                } else {
+                  history.goBack();
+                }
+              }}
             />
           </div>
         ) : null}

@@ -6,15 +6,15 @@ import Logo from "../img/sorpresa-logo.png";
  * @component
  */
 const Loader = () => {
-    return (
-        <>
-            <div className="bg-color-gradient w-screen h-screen flex justify-center items-center flex-col">
-                <div className="w-1/2 animate-bounce">
-                    <img src={Logo} alt="logo" />
-                </div>
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div className="bg-color-gradient w-screen h-screen flex justify-center items-center flex-col fixed pin z-50">
+        <div className="w-1/2 animate-bounce">
+          <img src={Logo} alt="logo" />
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default Loader;

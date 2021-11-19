@@ -41,19 +41,19 @@ const BookingCard: React.FC<BookingProps> = ({ bookingDetails }) => {
 
             <div>
               <TextLabel text={"Theme"} />
-              <CircleColor color={bookingDetails.theme} />
+              <CircleColor color={bookingDetails?.theme} />
             </div>
           </div>
 
           <div className="w-1/2">
             <TextLabel text={"Date & Time"} />
             <div className="font-poppins text-xl text-defaultBlack font-medium">
-              {moment(bookingDetails.date, "MMM DD, YYYY").format(
+              {moment(bookingDetails?.date, "MMM DD, YYYY").format(
                 "MMM DD, YYYY"
               )}
             </div>
             <div className="font-poppins text-xl text-defaultBlack  font-medium">
-              {bookingDetails.time}
+              {bookingDetails?.time}
             </div>
           </div>
         </div>
@@ -62,13 +62,13 @@ const BookingCard: React.FC<BookingProps> = ({ bookingDetails }) => {
           <div className="w-1/2">
             <TextLabel text={"From"} />
             <div className="font-poppins text-xl text-defaultBlack font-medium">
-              {bookingDetails.from}
+              {bookingDetails?.from}
             </div>
           </div>
           <div className="w-1/2">
             <TextLabel text={"To"} />
             <div className="font-poppins text-xl text-defaultBlack font-medium">
-              {bookingDetails.to}
+              {bookingDetails?.to}
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@ const BookingCard: React.FC<BookingProps> = ({ bookingDetails }) => {
         <div className="mb-2">
           <TextLabel text={"Location"} />
           <div className="font-poppins text-xl text-defaultBlack font-medium">
-            {bookingDetails.location}
+            {bookingDetails?.location}
           </div>
         </div>
 
@@ -84,7 +84,7 @@ const BookingCard: React.FC<BookingProps> = ({ bookingDetails }) => {
           <div className="w-1/2">
             <TextLabel text={"Amount"} />
             <div className="font-poppins text-xl text-purple3 font-medium">
-              Php {bookingDetails.amount}.00
+              Php {bookingDetails?.amount}.00
             </div>
           </div>
           <div className="w-1/2 flex justify-center items-center">

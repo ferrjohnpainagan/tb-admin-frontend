@@ -6,10 +6,7 @@ import HomeInactive from "../img/home-inactive.svg";
 import HomeActive from "../img/home-active.svg";
 import AllBookingsActive from "../img/all-bookings-active.svg";
 import AllBookingsInactive from "../img/all-bookings-inactive.svg";
-import CartrunkActive from "../img/cartrunk-active.svg";
-import CartrunkInactive from "../img/cartrunk-inactive.svg";
-import DeliveriesActive from "../img/deliveries-active.svg";
-import DeliveriesInactive from "../img/deliveries-inactive.svg";
+import AddIcon from "../img/add-Icon.svg";
 
 /** Component for the bottom app bar
  *
@@ -29,7 +26,7 @@ const BottomAppBar = () => {
 
   return (
     <>
-      <div className="w-screen h-14 bg-defaultGray absolute bottom-0 flex justify-between items-center px-6 mt-10 rounded-3xl">
+      <div className="w-screen h-14 bg-defaultGray absolute bottom-0 flex justify-between items-center px-16 mt-10 rounded-3xl">
         <div className="w-14 flex justify-center">
           <img
             src={activeLink("home") ? HomeActive : HomeInactive}
@@ -39,12 +36,21 @@ const BottomAppBar = () => {
         </div>
         <div className="w-14 flex justify-center">
           <img
-            src={activeLink("all") ? AllBookingsActive : AllBookingsInactive}
-            onClick={() => history.push("/admin/bookings/all")}
-            alt="all"
+            src={AddIcon}
+            // onClick={() => history.push("/admin/bookings/all")}
+            alt="add"
           />
         </div>
         <div className="w-14 flex justify-center">
+          <img
+            src={
+              activeLink("booking") ? AllBookingsActive : AllBookingsInactive
+            }
+            onClick={() => history.push("/admin/booking")}
+            alt="all"
+          />
+        </div>
+        {/* <div className="w-14 flex justify-center">
           <img
             src={activeLink("cartrunk") ? CartrunkActive : CartrunkInactive}
             onClick={() => history.push("/admin/bookings/cartrunk")}
@@ -59,7 +65,7 @@ const BottomAppBar = () => {
             onClick={() => history.push("/admin/bookings/deliveries")}
             alt="delivery"
           />
-        </div>
+        </div> */}
       </div>
     </>
   );
