@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import { Route, RouteComponentProps, Redirect } from "react-router-dom";
+import { signOutAdmin } from "../../redux/auth/actions";
+
 import { IPage, IRoute } from "../../interfaces";
 
 const Routes: React.FC<IRoute> = ({
@@ -7,16 +10,17 @@ const Routes: React.FC<IRoute> = ({
   path,
   isPrivate,
 }) => {
-  const [signed, setSigned] = useState(true);
+  // const dispatch = useDispatch();
+  const { isSignedIn } = useSelector((state: RootStateOrAny) => state.auth);
 
   useEffect(() => {
-    setSigned(true);
+    // dispatch(signOutAdmin());
   }, []);
 
   /** Redirect user to login page
    * if user opens a private page while not signed in
    */
-  if (isPrivate && !signed) {
+  if (isPrivate && !isSignedIn) {
     return <Redirect to="/admin/auth#login" />;
   }
 
@@ -24,7 +28,7 @@ const Routes: React.FC<IRoute> = ({
    * if user has signed in already
    */
 
-  if (signed) {
+  if (isSignedIn) {
     if (path === "/admin/auth") {
       return <Redirect to="/admin/home" />;
     }

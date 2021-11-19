@@ -1,22 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { signInAdmin } from "../../../../redux/auth/actions";
 
 import Logo from "../../../../img/sorpresa-logo.png";
 import Loader from "../../../../shared/Loader";
 
 interface LoginInputs {
-  username: string;
+  email: string;
   password: string;
 }
 
 const Login = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginInputs>();
 
-  const onSubmit: SubmitHandler<LoginInputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
+    let response = await dispatch(signInAdmin(data));
+    console.log(response);
+  };
+
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -26,13 +34,13 @@ const Login = () => {
         </div>
 
         <div className="w-3/4 py-12">
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <input
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
-              id="username"
+              id="email"
               type="text"
-              placeholder="Username"
-              {...register("username", { required: true })}
+              placeholder="Email"
+              {...register("email", { required: true })}
             />
             <input
               className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
@@ -41,7 +49,6 @@ const Login = () => {
               placeholder="Password"
               {...register("password", { required: true })}
             />
-
             <button className="bg-defaultPurple w-full py-2 my-3 rounded-full text-white">
               Login
             </button>
