@@ -29,3 +29,17 @@ export interface IBookingItem {
   theme: string | undefined;
   referenceNumber: string;
 }
+
+export interface IAddBooking {
+  packageType: string;
+  date: string | Date | undefined | null;
+  time: string;
+  from: string;
+  fromContact: string;
+  to: string;
+  toContact: string;
+  location: string;
+  amount: string | number | undefined;
+  status: string;
+  theme: string | undefined;
+}

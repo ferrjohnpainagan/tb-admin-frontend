@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { IBookingItem } from "../../../../interfaces";
 
-import Header from "../../../../shared/Header";
-import BottomAppBar from "../../../../shared/BottomAppBar";
 import Loader from "../../../../shared/Loader";
 import BookingCard from "./BookingCard";
 import TextLabel from "../../../../shared/TextLabel";

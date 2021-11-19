@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router";
 import moment from "moment";
 import { IBookingItem } from "../../../../interfaces";
 
@@ -19,6 +20,7 @@ interface BookingProps {
  * @component
  */
 const BookingCard: React.FC<BookingProps> = ({ bookingDetails }) => {
+  const history = useHistory();
   return (
     <div className="">
       <div className="flex flex-col bg-defaultWhite p-4 rounded-xl">
@@ -88,7 +90,12 @@ const BookingCard: React.FC<BookingProps> = ({ bookingDetails }) => {
             </div>
           </div>
           <div className="w-1/2 flex justify-center items-center">
-            <div className="w-28 p-1 font-poppins font-medium bg-purple3 text-defaultWhite rounded-2xl text-center">
+            <div
+              className="w-28 p-1 font-poppins font-medium bg-purple3 text-defaultWhite rounded-2xl text-center"
+              onClick={() => {
+                history.push("/admin/booking#form", { type: "update" });
+              }}
+            >
               UPDATE
             </div>
           </div>

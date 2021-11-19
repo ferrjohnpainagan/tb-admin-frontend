@@ -37,7 +37,7 @@ const BottomAppBar = () => {
         <div className="w-14 flex justify-center">
           <img
             src={AddIcon}
-            // onClick={() => history.push("/admin/bookings/all")}
+            onClick={() => history.push("/admin/booking#form", { type: "add" })}
             alt="add"
           />
         </div>

@@ -5,7 +5,6 @@ import Route from "./Routes";
 import AuthContainer from "../features/auth/containers/Main";
 import HomeContainer from "../features/home/containers/Main";
 import AllBookingsContainer from "../features/bookings/containers/Main";
-import BookingDetailsContainer from "../features/bookingDetails/containers/Main";
 
 const index = () => {
   return (
@@ -28,13 +27,6 @@ const index = () => {
         path="/admin/booking"
         component={AllBookingsContainer}
         name="AllBookings"
-        exact={true}
-        isPrivate={true}
-      />
-      <Route
-        path="/admin/bookings/details"
-        component={BookingDetailsContainer}
-        name="BookingDetails"
         exact={true}
         isPrivate={true}
       />

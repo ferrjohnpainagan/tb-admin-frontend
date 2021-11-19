@@ -1,5 +1,4 @@
 import { Dispatch } from "redux";
-import { push } from "connected-react-router";
 import { provider, auth, app } from "../../services/firebase";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import authSlice from "./slice";

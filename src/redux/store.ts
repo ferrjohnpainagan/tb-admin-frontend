@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { persistReducer, persistStore } from "redux-persist";
-import logger from "redux-logger";
+import { connectRouter, routerMiddleware } from "connected-react-router";
+import { createLogger } from "redux-logger";
 import storage from "redux-persist/lib/storage";
+import history from "../services/history";
 
 import authSlice from "./auth/slice";
 
@@ -11,11 +13,20 @@ const persistConfig = {
   storage,
 };
 
-const rootReducer = combineReducers({
-  auth: authSlice.reducer,
-});
+const rootReducer = (history: any) =>
+  combineReducers({
+    router: connectRouter(history),
+    auth: authSlice.reducer,
+  });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer(history));
+
+const middlewares = [routerMiddleware(history)];
+
+if (process.env.NODE_ENV === "development") {
+  const logger = createLogger({ collapsed: true, diff: true });
+  middlewares.push(logger);
+}
 
 const store = configureStore({
   reducer: persistedReducer,
@@ -23,7 +34,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(logger),
+    }).concat(...middlewares),
 });
 
 export const persistor = persistStore(store);

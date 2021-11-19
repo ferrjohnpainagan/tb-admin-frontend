@@ -10,7 +10,7 @@ const Routes: React.FC<IRoute> = ({
   path,
   isPrivate,
 }) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { isSignedIn } = useSelector((state: RootStateOrAny) => state.auth);
 
   useEffect(() => {
