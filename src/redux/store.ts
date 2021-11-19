@@ -7,6 +7,7 @@ import storage from "redux-persist/lib/storage";
 import history from "../services/history";
 
 import authSlice from "./auth/slice";
+import bookingSlice from "./booking/slice";
 
 const persistConfig = {
   key: "root",
@@ -17,6 +18,7 @@ const rootReducer = (history: any) =>
   combineReducers({
     router: connectRouter(history),
     auth: authSlice.reducer,
+    bookings: bookingSlice.reducer,
   });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer(history));

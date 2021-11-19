@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, RootStateOrAny } from "react-redux";
 import { useHistory } from "react-router";
 import * as helper from "../../../../utils/helper";
 
@@ -14,6 +15,7 @@ const BookingsList: React.FC<Props> = ({ setLoading }) => {
   const history = useHistory();
   const [bookingsList, setBookingsList] = useState([]);
   const [datesList, setDatesList] = useState([]);
+  const { bookings } = useSelector((state: RootStateOrAny) => state.bookings);
 
   /** Handles the grouping of bookings by date */
   const groupBookingsByDate = (list: IBookingItem[]): void => {
@@ -35,7 +37,7 @@ const BookingsList: React.FC<Props> = ({ setLoading }) => {
   };
 
   useEffect(() => {
-    groupBookingsByDate(helper.SampleBookings);
+    groupBookingsByDate(bookings);
   }, []);
   return (
     <div>

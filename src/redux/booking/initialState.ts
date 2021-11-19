@@ -1,3 +1,3 @@
-export const initialState: Object = {
-  bookings: null,
+export const initialState: any = {
+  bookings: [],
 };

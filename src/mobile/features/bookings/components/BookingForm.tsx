@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { useDispatch } from "react-redux";
 import DatePicker from "react-datepicker";
+import { v4 as uuidv4 } from "uuid";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { addBooking } from "../../../../redux/booking/actions";
 
@@ -46,6 +47,7 @@ const BookingForm = () => {
       date: moment(selectedDate).format("MMMM DD, YYYY"),
       time: moment(selectedDate).format("h:mm a"),
       status: "IN PROCESS",
+      referenceNumber: uuidv4().split("-")[0].toUpperCase(),
     };
 
     dispatch(addBooking(bookingData));
