@@ -8,6 +8,9 @@ const authSlice = createSlice({
     SET_SIGNED_IN: (state, action: PayloadAction<boolean>) => {
       state.isSignedIn = action.payload;
     },
+    SET_ADMIN_NAME: (state, action) => {
+      state.adminName = action.payload;
+    },
   },
 });
 

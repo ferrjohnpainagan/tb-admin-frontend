@@ -21,7 +21,7 @@ export const signInAdmin =
         data.password
       );
       dispatch(authSlice.actions.SET_SIGNED_IN(true));
-
+      dispatch(authSlice.actions.SET_ADMIN_NAME(response.user.displayName));
       return { data: response, success: true };
     } catch (error) {
       return { data: error, success: false };
