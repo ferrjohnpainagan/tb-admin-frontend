@@ -21,6 +21,7 @@
     "firebase": "^9.4.0",
     "moment": "^2.29.1",
     "react": "^17.0.2",
+    "react-app-rewire-workbox": "^2.0.1",
     "react-datepicker": "^4.3.0",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.16.2",
@@ -36,8 +37,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "CI=false && craco build",
+    "start": "craco start && react-app-rewired",
+    "build": "CI=false && craco build && react-app-rewired",
     "test": "craco test",
     "eject": "react-scripts eject"
   },

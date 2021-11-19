@@ -8,6 +8,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "./redux/store";
 import { ConnectedRouter } from "connected-react-router";
 import history from "./services/history";
+import registerServiceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -25,4 +26,5 @@ ReactDOM.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+registerServiceWorker();
 reportWebVitals();
