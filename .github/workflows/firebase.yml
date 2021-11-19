@@ -46,8 +46,8 @@ jobs:
         with:
           name: build
           path: build
-      - name: Depoy to Firebase
-        uses: w9jds/firebase-action@master
+      - name: Deploy to Firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           args: deploy --only hosting
         env:
