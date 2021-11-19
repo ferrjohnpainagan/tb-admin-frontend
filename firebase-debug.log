@@ -1,0 +1,33 @@
+[debug] [2021-11-19T18:47:45.282Z] ----------------------------------------------------------------------
+[debug] [2021-11-19T18:47:45.283Z] Command:       /usr/local/bin/node /opt/homebrew/bin/firebase serve --only hosting
+[debug] [2021-11-19T18:47:45.283Z] CLI Version:   9.23.0
+[debug] [2021-11-19T18:47:45.283Z] Platform:      darwin
+[debug] [2021-11-19T18:47:45.283Z] Node Version:  v14.16.1
+[debug] [2021-11-19T18:47:45.288Z] Time:          Sat Nov 20 2021 02:47:45 GMT+0800 (Philippine Standard Time)
+[debug] [2021-11-19T18:47:45.288Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-11-19T18:47:45.339Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-11-19T18:47:45.339Z] > authorizing via signed-in user (ferrjohnpainagan@gmail.com)
+[debug] [2021-11-19T18:47:45.339Z] [iam] checking project test-tb-admin for permissions ["firebase.projects.get"]
+[debug] [2021-11-19T18:47:45.342Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-11-19T18:47:45.342Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-11-19T18:47:45.628Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Fri, 19 Nov 2021 18:47:45 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-11-19T18:47:45.675Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/test-tb-admin:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2021-11-19T18:47:46.647Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Fri, 19 Nov 2021 18:47:46 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=812","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-11-19T18:47:46.652Z] > refreshing access token with scopes: []
+[debug] [2021-11-19T18:47:46.652Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-11-19T18:47:46.838Z] <<< HTTP RESPONSE 200 {"date":"Fri, 19 Nov 2021 18:47:46 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","pragma":"no-cache","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-11-19T18:47:46.888Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/test-tb-admin [none]
+[debug] [2021-11-19T18:47:47.674Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/test-tb-admin 200
+[debug] [2021-11-19T18:47:47.674Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/test-tb-admin {"projectId":"test-tb-admin","projectNumber":"732807135521","displayName":"test-tb-admin","name":"projects/test-tb-admin","resources":{"hostingSite":"test-tb-admin","realtimeDatabaseInstance":"test-tb-admin-default-rtdb","storageBucket":"test-tb-admin.appspot.com","locationId":"asia-southeast1"},"state":"ACTIVE"}
+[debug] [2021-11-19T18:47:47.674Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/test-tb-admin/sites 
+[debug] [2021-11-19T18:47:48.900Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/test-tb-admin/sites 200
+[debug] [2021-11-19T18:47:48.900Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/test-tb-admin/sites {"sites":[{"name":"projects/732807135521/sites/test-tb-admin","defaultUrl":"https://test-tb-admin.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2021-11-19T18:47:48.901Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/test-tb-admin/webApps/-/config [none]
+[debug] [2021-11-19T18:47:50.542Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/test-tb-admin/webApps/-/config 200
+[debug] [2021-11-19T18:47:50.542Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/test-tb-admin/webApps/-/config {"projectId":"test-tb-admin","appId":"1:732807135521:web:821ee1ded2931f38607e60","databaseURL":"https://test-tb-admin-default-rtdb.asia-southeast1.firebasedatabase.app","storageBucket":"test-tb-admin.appspot.com","locationId":"asia-southeast1","apiKey":"AIzaSyAh9QLfC5JgNx1_QBhkxTxJVJpoZtZJF_g","authDomain":"test-tb-admin.firebaseapp.com","messagingSenderId":"732807135521"}
+[info] i  hosting: Serving hosting files from: build {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mbuild\u001b[22m"}}
+[info] ✔  hosting: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
