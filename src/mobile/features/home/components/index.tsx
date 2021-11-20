@@ -16,7 +16,7 @@ const Wrapper: React.FC<any> = (props) => {
           type={"home"}
           showBackBtn={false}
           title={"Hi"}
-          accntName={"Tita Baker"}
+          accntName={adminName}
         />
 
         <div className="p-7">
