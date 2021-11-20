@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, RootStateOrAny } from "react-redux";
+import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import * as helper from "../../../../utils/helper";
+import { getAllBookings } from "../../../../redux/booking/actions";
 
 import SmallCard from "../../../../shared/SmallCard";
 
@@ -13,6 +13,7 @@ interface Props {
 
 const BookingsList: React.FC<Props> = ({ setLoading }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [bookingsList, setBookingsList] = useState([]);
   const [datesList, setDatesList] = useState([]);
   const { bookings } = useSelector((state: RootStateOrAny) => state.bookings);
@@ -23,6 +24,11 @@ const BookingsList: React.FC<Props> = ({ setLoading }) => {
 
     list.map((booking) => {
       dates.push(booking.date);
+    });
+
+    /** Reorders the date from latest to oldest */
+    dates = dates.slice().sort((a: any, b: any) => {
+      return +new Date(a) - +new Date(b);
     });
 
     setDatesList([...new Set(dates)]);
@@ -37,6 +43,7 @@ const BookingsList: React.FC<Props> = ({ setLoading }) => {
   };
 
   useEffect(() => {
+    dispatch(getAllBookings());
     groupBookingsByDate(bookings);
   }, []);
   return (

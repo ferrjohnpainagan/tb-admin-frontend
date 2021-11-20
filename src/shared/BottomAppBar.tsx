@@ -1,6 +1,8 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import * as helper from "../utils/helper";
+import { getAllBookings } from "../redux/booking/actions";
 
 import HomeInactive from "../img/home-inactive.svg";
 import HomeActive from "../img/home-active.svg";
@@ -14,6 +16,7 @@ import AddIcon from "../img/add-Icon.svg";
  */
 const BottomAppBar = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   /** Checks if btn is currently active
    *
    * @param {string} current - accepts the name of the btn
@@ -30,7 +33,10 @@ const BottomAppBar = () => {
         <div className="w-14 flex justify-center">
           <img
             src={activeLink("home") ? HomeActive : HomeInactive}
-            onClick={() => history.push("/admin/home")}
+            onClick={() => {
+              dispatch(getAllBookings());
+              history.push("/admin/home");
+            }}
             alt="home"
           />
         </div>
@@ -46,7 +52,10 @@ const BottomAppBar = () => {
             src={
               activeLink("booking") ? AllBookingsActive : AllBookingsInactive
             }
-            onClick={() => history.push("/admin/booking")}
+            onClick={() => {
+              dispatch(getAllBookings());
+              history.push("/admin/booking");
+            }}
             alt="all"
           />
         </div>

@@ -4,10 +4,12 @@ import { useDispatch } from "react-redux";
 import DatePicker from "react-datepicker";
 import { v4 as uuidv4 } from "uuid";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { addBooking } from "../../../../redux/booking/actions";
-
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
+import _ from "lodash";
+
+import { addBooking, updateBooking } from "../../../../redux/booking/actions";
+import { IBookingItem } from "../../../../interfaces";
 
 interface stateType {
   type: string;
@@ -31,6 +33,7 @@ interface IBookingInput {
 const BookingForm = () => {
   const dispatch = useDispatch();
   const { state } = useLocation<stateType>();
+  const [formType, setFormType] = useState<any>();
   const [selectedDate, setSelectedDate] = useState<Date | undefined | null>(
     undefined
   );
@@ -45,9 +48,35 @@ const BookingForm = () => {
     defaultValues: state?.type === "add" ? {} : state?.bookingDetails,
   });
 
-  const onSubmit: SubmitHandler<IBookingInput> = async (data) => {
+  /** Handle render of datepicker component when updating */
+  const handleDefaultDate = () => {
+    if (_.isUndefined(selectedDate)) {
+      return new Date(
+        state?.bookingDetails.date + " " + state?.bookingDetails.time
+      );
+    } else {
+      return selectedDate;
+    }
+  };
+
+  const onSubmit: SubmitHandler<IBookingInput | IBookingItem> = async (
+    data
+  ) => {
     let bookingData;
-    if (state?.type === "add") {
+    if (state?.type === "update") {
+      bookingData = {
+        ...data,
+        date: selectedDate
+          ? moment(selectedDate).format("MMMM DD, YYYY")
+          : state?.bookingDetails?.date,
+        time: selectedDate
+          ? moment(selectedDate).format("h:mm a")
+          : state?.bookingDetails?.time,
+        id: state?.bookingDetails?.id,
+        referenceNumber: state?.bookingDetails?.referenceNumber,
+      };
+      dispatch(updateBooking(bookingData));
+    } else {
       bookingData = {
         ...data,
         date: moment(selectedDate).format("MMMM DD, YYYY"),
@@ -56,18 +85,16 @@ const BookingForm = () => {
         referenceNumber: uuidv4().split("-")[0].toUpperCase(),
       };
       dispatch(addBooking(bookingData));
-    } else {
-      bookingData = {
-        ...data,
-        date: moment(selectedDate).format("MMMM DD, YYYY"),
-        time: moment(selectedDate).format("h:mm a"),
-        status: "IN PROCESS",
-      };
-      alert("Update feature in progress");
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (_.isUndefined(state?.type)) {
+      setFormType("add");
+    } else {
+      setFormType(state?.type);
+    }
+  }, []);
   return (
     <div className="bg-defaultPinkBg h-screen overflow-scroll">
       <div className="px-4 text-3xl font-bold tracking-wide">
@@ -77,6 +104,19 @@ const BookingForm = () => {
       <div className="p-4">
         <div className="flex flex-col bg-defaultWhite p-4 rounded-xl">
           <form onSubmit={handleSubmit(onSubmit)}>
+            {state?.type === "update" ? (
+              <select
+                className="appearance-none border rounded w-45 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="status"
+                placeholder="Status"
+                {...register("status", { required: false })}
+              >
+                <option value="IN PROCESS">IN PROCESS</option>
+                <option value="DELIVERED">DELIVERED</option>
+                <option value="CANCELLED">CANCELLED</option>
+              </select>
+            ) : null}
+
             <div className="flex justify-between">
               <select
                 className="appearance-none border rounded w-45 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
@@ -106,25 +146,50 @@ const BookingForm = () => {
               </select>
             </div>
             <div className="">
-              <Controller
-                control={control}
-                name="date"
-                render={({ field }) => (
-                  <DatePicker
-                    placeholderText="Select date"
-                    onChange={(date: Date | null) => {
-                      setSelectedDate(date);
-                    }}
-                    selected={selectedDate}
-                    value={
-                      selectedDate
-                        ? moment(selectedDate).format("MMMM DD, YYYY")
-                        : ""
-                    }
-                    showTimeSelect={true}
-                  />
-                )}
-              />
+              {state?.type === "update" ? (
+                <Controller
+                  control={control}
+                  name="date"
+                  render={({ field }) => (
+                    <DatePicker
+                      placeholderText="Select date"
+                      onChange={(date: Date | null) => {
+                        setSelectedDate(date);
+                      }}
+                      selected={handleDefaultDate()}
+                      value={
+                        selectedDate
+                          ? moment(selectedDate).format("MMMM DD, YYYY")
+                          : state?.bookingDetails?.date
+                      }
+                      showTimeSelect={true}
+                      minDate={new Date()}
+                    />
+                  )}
+                />
+              ) : (
+                <Controller
+                  control={control}
+                  name="date"
+                  render={({ field }) => (
+                    <DatePicker
+                      placeholderText="Select date"
+                      onChange={(date: Date | null) => {
+                        setSelectedDate(date);
+                      }}
+                      selected={selectedDate}
+                      value={
+                        selectedDate
+                          ? moment(selectedDate).format("MMMM DD, YYYY")
+                          : ""
+                      }
+                      showTimeSelect={true}
+                      minDate={new Date()}
+                    />
+                  )}
+                />
+              )}
+
               <input
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2"
                 id="time"
@@ -132,8 +197,13 @@ const BookingForm = () => {
                 placeholder="Time"
                 {...register("time", { required: false })}
                 value={
-                  selectedDate ? moment(selectedDate).format("h:mm a") : ""
+                  selectedDate
+                    ? moment(selectedDate).format("h:mm a")
+                    : !_.isUndefined(state?.bookingDetails)
+                    ? state?.bookingDetails?.time
+                    : ""
                 }
+                readOnly
               />
             </div>
 
