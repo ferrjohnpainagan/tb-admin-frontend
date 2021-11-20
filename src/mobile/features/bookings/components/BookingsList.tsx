@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { getAllBookings } from "../../../../redux/booking/actions";
+import * as helper from "../../../../utils/helper";
 
 import SmallCard from "../../../../shared/SmallCard";
 
@@ -26,7 +27,7 @@ const BookingsList: React.FC<Props> = ({ setLoading }) => {
       dates.push(booking.date);
     });
 
-    /** Reorders the date from latest to oldest */
+    /** Reorders the date from nearest to farthest */
     dates = dates.slice().sort((a: any, b: any) => {
       return +new Date(a) - +new Date(b);
     });

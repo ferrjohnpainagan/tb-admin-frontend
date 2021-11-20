@@ -10,7 +10,6 @@ import * as helper from "../../utils/helper";
 export const getRegisteredAdmin = () => async () => {
   try {
     let response = await getAuth(app);
-    console.log(response);
   } catch (error) {}
 };
 

@@ -21,7 +21,6 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
     let response = await dispatch(signInAdmin(data));
-    console.log(response);
   };
 
   useEffect(() => {}, []);

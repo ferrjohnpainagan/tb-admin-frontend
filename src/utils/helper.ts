@@ -103,6 +103,7 @@ export const SampleBookings = [
   },
 ];
 
+/** Sets display name at home */
 export const handleDisplayName = (email: string) => {
   if (
     email.toLowerCase().includes("irene") ||

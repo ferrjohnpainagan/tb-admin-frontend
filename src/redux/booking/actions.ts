@@ -25,6 +25,11 @@ export const getAllBookings = () => async (dispatch: Dispatch) => {
     response.forEach((doc) => {
       bookingsList.push({ ...doc.data(), id: doc.id });
     });
+
+    bookingsList = bookingsList.slice().sort((a: any, b: any) => {
+      return +new Date(a.date) - +new Date(b.date);
+    });
+
     dispatch(bookingSlice.actions.SET_ALL_BOOKINGS(bookingsList));
   } catch (error) {}
 };

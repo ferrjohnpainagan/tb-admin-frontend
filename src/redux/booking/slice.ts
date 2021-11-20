@@ -12,7 +12,7 @@ const bookingSlice = createSlice({
       let newList = state.bookings.filter((booking: any) => {
         return booking.id !== action.payload.id;
       });
-      console.log([...newList, action.payload]);
+
       state.bookings = [...newList, action.payload];
     },
   },

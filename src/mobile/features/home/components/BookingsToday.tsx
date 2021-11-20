@@ -20,7 +20,7 @@ const BookingsToday = () => {
       <div>
         <div className="flex justify-between items-center">
           <span className="text-xl font-bold text-defaultBlack">
-            Bookings for today
+            Upcoming Bookings
           </span>
           <div
             className="w-20 h-6 bg-defaultWhite flex items-center justify-center text-xs rounded-2xl text-gray-400"
@@ -33,22 +33,26 @@ const BookingsToday = () => {
         </div>
         {!!bookings &&
           bookings.map((booking: IBookingItem, index: any) => {
-            return (
-              <div
-                key={index}
-                onClick={() => {
-                  history.push("/admin/booking#details", { data: booking });
-                }}
-              >
-                <SmallCard
-                  type={"today"}
-                  packageType={booking.packageType}
-                  sender={booking.from}
-                  location={booking.location}
-                  date={booking.date}
-                />
-              </div>
-            );
+            if (index <= 5) {
+              return (
+                <div
+                  key={index}
+                  onClick={() => {
+                    history.push("/admin/booking#details", { data: booking });
+                  }}
+                >
+                  <SmallCard
+                    type={"today"}
+                    packageType={booking.packageType}
+                    sender={booking.from}
+                    location={booking.location}
+                    date={booking.date}
+                  />
+                </div>
+              );
+            } else {
+              return;
+            }
           })}
       </div>
     </>
