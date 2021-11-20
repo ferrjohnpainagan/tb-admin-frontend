@@ -66,11 +66,17 @@ const BookingCard: React.FC<BookingProps> = ({ bookingDetails }) => {
             <div className="font-poppins text-xl text-defaultBlack font-medium">
               {bookingDetails?.from}
             </div>
+            <div className="font-poppins text-l text-defaultBlack font-medium">
+              {bookingDetails?.fromContact}
+            </div>
           </div>
           <div className="w-1/2">
             <TextLabel text={"To"} />
             <div className="font-poppins text-xl text-defaultBlack font-medium">
               {bookingDetails?.to}
+            </div>
+            <div className="font-poppins text-l text-defaultBlack font-medium">
+              {bookingDetails?.toContact}
             </div>
           </div>
         </div>

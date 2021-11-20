@@ -22,7 +22,9 @@ export interface IBookingItem {
   time: string;
   packageType: string;
   from: string;
+  fromContact: string;
   to: string;
+  toContact: string;
   location: string;
   amount: string | number | undefined;
   status: string;
