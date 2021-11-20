@@ -44,4 +44,5 @@ export interface IAddBooking {
   amount: string | number | undefined;
   status: string;
   theme: string | undefined;
+  referenceNumber: string;
 }

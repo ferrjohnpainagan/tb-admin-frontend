@@ -11,6 +11,7 @@ import moment from "moment";
 
 interface stateType {
   type: string;
+  bookingDetails: any;
 }
 
 interface IBookingInput {
@@ -38,24 +39,35 @@ const BookingForm = () => {
     register,
     handleSubmit,
     control,
+
     formState: { errors },
-  } = useForm<IBookingInput>();
+  } = useForm<IBookingInput>({
+    defaultValues: state?.type === "add" ? {} : state?.bookingDetails,
+  });
 
   const onSubmit: SubmitHandler<IBookingInput> = async (data) => {
-    let bookingData = {
-      ...data,
-      date: moment(selectedDate).format("MMMM DD, YYYY"),
-      time: moment(selectedDate).format("h:mm a"),
-      status: "IN PROCESS",
-      referenceNumber: uuidv4().split("-")[0].toUpperCase(),
-    };
-
-    dispatch(addBooking(bookingData));
+    let bookingData;
+    if (state?.type === "add") {
+      bookingData = {
+        ...data,
+        date: moment(selectedDate).format("MMMM DD, YYYY"),
+        time: moment(selectedDate).format("h:mm a"),
+        status: "IN PROCESS",
+        referenceNumber: uuidv4().split("-")[0].toUpperCase(),
+      };
+      dispatch(addBooking(bookingData));
+    } else {
+      bookingData = {
+        ...data,
+        date: moment(selectedDate).format("MMMM DD, YYYY"),
+        time: moment(selectedDate).format("h:mm a"),
+        status: "IN PROCESS",
+      };
+      alert("Update feature in progress");
+    }
   };
 
-  useEffect(() => {
-    console.log(state?.type);
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div className="bg-defaultPinkBg h-screen overflow-scroll">
       <div className="px-4 text-3xl font-bold tracking-wide">

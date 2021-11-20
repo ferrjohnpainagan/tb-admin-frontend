@@ -99,7 +99,10 @@ const BookingCard: React.FC<BookingProps> = ({ bookingDetails }) => {
             <div
               className="w-28 p-1 font-poppins font-medium bg-purple3 text-defaultWhite rounded-2xl text-center"
               onClick={() => {
-                history.push("/admin/booking#form", { type: "update" });
+                history.push("/admin/booking#form", {
+                  type: "update",
+                  bookingDetails: bookingDetails,
+                });
               }}
             >
               UPDATE

@@ -62,7 +62,7 @@ const SmallCard: React.FC<SmallCardProps> = ({
     <>
       <div className="my-2 flex bg-defaultWhite py-2 px-4 rounded-xl justify-between">
         <div className="flex">
-          <div className="w-16 flex items-center">
+          <div className="flex items-center">
             {packageType === "cartrunk" ? (
               <img src={Cartrunk} alt={packageType} />
             ) : (
@@ -71,7 +71,7 @@ const SmallCard: React.FC<SmallCardProps> = ({
           </div>
           <div className="pl-3">
             <div className="text-lg font-medium">{sender}</div>
-            <div className="text-xs text-opacity-60 text-defaultBlack overflow-hidden w-34 h-4">
+            <div className="text-xs text-opacity-60 text-defaultBlack overflow-hidden truncate whitespace-nowrap w-32 h-4">
               {location}
             </div>
           </div>
