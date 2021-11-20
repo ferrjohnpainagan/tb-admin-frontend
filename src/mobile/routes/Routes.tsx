@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import { Route, RouteComponentProps, Redirect } from "react-router-dom";
 import { signOutAdmin } from "../../redux/auth/actions";
+import * as helper from "../../utils/helper";
 
 import { IPage, IRoute } from "../../interfaces";
 
@@ -14,7 +15,7 @@ const Routes: React.FC<IRoute> = ({
   const { isSignedIn } = useSelector((state: RootStateOrAny) => state.auth);
 
   useEffect(() => {
-    // dispatch(signOutAdmin());
+    dispatch(signOutAdmin());
   }, []);
 
   /** Redirect user to login page

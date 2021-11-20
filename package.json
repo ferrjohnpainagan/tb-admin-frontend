@@ -37,8 +37,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "craco start && react-app-rewired",
-    "build": "CI=false && craco build && react-app-rewired",
+    "start": "craco start && react-app-rewired start",
+    "build": "CI=false && craco build && react-app-rewired build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
