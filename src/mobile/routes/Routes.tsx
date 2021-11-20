@@ -15,7 +15,7 @@ const Routes: React.FC<IRoute> = ({
   const { isSignedIn } = useSelector((state: RootStateOrAny) => state.auth);
 
   useEffect(() => {
-    dispatch(signOutAdmin());
+    // dispatch(signOutAdmin());
   }, []);
 
   /** Redirect user to login page

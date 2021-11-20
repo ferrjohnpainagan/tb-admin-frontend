@@ -38,7 +38,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "CI=false && craco build",
+    "build": "CI=false && react-app-rewired && craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
