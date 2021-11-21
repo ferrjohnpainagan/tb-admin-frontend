@@ -12,13 +12,13 @@ export const getPath = (): string => {
 };
 
 export const themeColors = [
-  "themeBlue",
-  "themeRed",
-  "themeGreen",
-  "themePink",
-  "themeGold",
-  "themeOrange",
-  "themeViolet",
+  "blueTheme",
+  "redTheme",
+  "greenTheme",
+  "pinkTheme",
+  "goldTheme",
+  "orangeTheme",
+  "violetTheme",
 ];
 
 /** Parses the theme for the package
