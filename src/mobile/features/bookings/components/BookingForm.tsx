@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { useDispatch } from "react-redux";
 import DatePicker from "react-datepicker";
-import { v4 as uuidv4 } from "uuid";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import "react-datepicker/dist/react-datepicker.css";
+import { addBooking, updateBooking } from "../../../../redux/booking/actions";
+import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import _ from "lodash";
 
-import { addBooking, updateBooking } from "../../../../redux/booking/actions";
+import "react-datepicker/dist/react-datepicker.css";
+
 import { IBookingItem } from "../../../../interfaces";
+import TextLabel from "../../../../shared/TextLabel";
+import DeleteIcon from "../../../../img/delete-icon.svg";
 
 interface stateType {
   type: string;
@@ -30,10 +33,20 @@ interface IBookingInput {
   theme: string | undefined;
 }
 
+interface IItemInput {
+  itemName: string;
+  itemCost: string;
+}
+
 const BookingForm = () => {
   const dispatch = useDispatch();
   const { state } = useLocation<stateType>();
   const [formType, setFormType] = useState<any>();
+  const [packageDetailsTable, setPackageDetailsTable] = useState<any>([]);
+  const [itemInput, setItemInput] = useState({
+    itemName: "",
+    itemCost: "",
+  });
   const [selectedDate, setSelectedDate] = useState<Date | undefined | null>(
     undefined
   );
@@ -48,6 +61,28 @@ const BookingForm = () => {
     defaultValues: state?.type === "add" ? {} : state?.bookingDetails,
   });
 
+  const renderTable = (packageDetails: any) => {
+    return packageDetails.map((item: IItemInput, index: any) => {
+      return (
+        <tr key={index} className="border-b border-defaultBlack">
+          <td>
+            <div className="font-poppins text-m text-defaultBlack font-normal truncate w-36">
+              {item.itemName}
+            </div>
+          </td>
+          <td>
+            <div className="font-poppins text-m text-defaultBlack font-normal truncate w-20">
+              {item.itemCost}
+            </div>
+          </td>
+          <td onClick={() => handleRemoveItem(index)}>
+            <img src={DeleteIcon} alt="del" />
+          </td>
+        </tr>
+      );
+    });
+  };
+
   /** Handle render of datepicker component when updating */
   const handleDefaultDate = () => {
     if (_.isUndefined(selectedDate)) {
@@ -57,6 +92,29 @@ const BookingForm = () => {
     } else {
       return selectedDate;
     }
+  };
+
+  /** Handles add item in package details table */
+  const handleAddItem = () => {
+    if (itemInput.itemName !== "" || itemInput.itemCost !== "") {
+      setItemInput({
+        itemName: "",
+        itemCost: "",
+      });
+      setPackageDetailsTable([...packageDetailsTable, itemInput]);
+    } else {
+      alert("Can't add empty items");
+    }
+  };
+
+  const handleRemoveItem = (indexRemove: number) => {
+    let newItems = packageDetailsTable.filter(
+      (item: IItemInput, index: number) => {
+        return indexRemove !== index;
+      }
+    );
+    // console.log(newItems);
+    setPackageDetailsTable(newItems);
   };
 
   const onSubmit: SubmitHandler<IBookingInput | IBookingItem> = async (
@@ -81,8 +139,9 @@ const BookingForm = () => {
         ...data,
         date: moment(selectedDate).format("MMMM DD, YYYY"),
         time: moment(selectedDate).format("h:mm a"),
-        status: "IN PROCESS",
+        status: "PROCESSING",
         referenceNumber: uuidv4().split("-")[0].toUpperCase(),
+        packageDetails: packageDetailsTable,
       };
       dispatch(addBooking(bookingData));
     }
@@ -96,7 +155,7 @@ const BookingForm = () => {
     }
   }, []);
   return (
-    <div className="bg-defaultPinkBg h-screen overflow-scroll">
+    <div className="bg-defaultPinkBg h-screen overflow-scroll mb-16">
       <div className="px-4 text-3xl font-bold tracking-wide">
         {state?.type === "update" ? "Update" : "Add"} Booking
       </div>
@@ -105,157 +164,241 @@ const BookingForm = () => {
         <div className="flex flex-col bg-defaultWhite p-4 rounded-xl">
           <form onSubmit={handleSubmit(onSubmit)}>
             {state?.type === "update" ? (
-              <select
-                className="appearance-none border rounded w-45 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="status"
-                placeholder="Status"
-                {...register("status", { required: false })}
-              >
-                <option value="PROCESSING">PROCESSING</option>
-                <option value="DELIVERED">DELIVERED</option>
-                <option value="CANCELLED">CANCELLED</option>
-              </select>
+              <>
+                <TextLabel text={"Status"} />
+                <select
+                  className="appearance-none border rounded w-45 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="status"
+                  {...register("status", { required: false })}
+                >
+                  <option value="PROCESSING">PROCESSING</option>
+                  <option value="DELIVERED">DELIVERED</option>
+                  <option value="CANCELLED">CANCELLED</option>
+                </select>
+              </>
             ) : null}
 
             <div className="flex justify-between">
-              <select
-                className="appearance-none border rounded w-45 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
-                id="packageType"
-                placeholder="packageType"
-                {...register("packageType", { required: true })}
-              >
-                <option value="">Type</option>
-                <option value="cartrunk">Cartrunk</option>
-                <option value="delivery">Delivery</option>
-              </select>
-              <select
-                className="appearance-none border rounded w-45 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
-                id="theme"
-                placeholder="theme"
-                {...register("theme", { required: false })}
-              >
-                <option value="">Theme</option>
-                <option value="blue">Blue</option>
-                <option value="red">Red</option>
-                <option value="green">Green</option>
-                <option value="pink">Pink</option>
-                <option value="gold">Gold</option>
-                <option value="orange">Orange</option>
-                <option value="violet">Violet</option>
-                <option value="other">Other</option>
-              </select>
+              <div className="w-45 my-2">
+                <TextLabel text={"Package Type"} />
+                <select
+                  className="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full"
+                  id="packageType"
+                  {...register("packageType", { required: true })}
+                >
+                  <option value="">Type</option>
+                  <option value="cartrunk">Cartrunk</option>
+                  <option value="delivery">Delivery</option>
+                </select>
+              </div>
+              <div className="w-45 my-2">
+                <TextLabel text={"Theme"} />
+                <select
+                  className="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full"
+                  id="theme"
+                  {...register("theme", { required: false })}
+                >
+                  <option value="">Theme</option>
+                  <option value="blue">Blue</option>
+                  <option value="red">Red</option>
+                  <option value="green">Green</option>
+                  <option value="pink">Pink</option>
+                  <option value="gold">Gold</option>
+                  <option value="orange">Orange</option>
+                  <option value="violet">Violet</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
             </div>
             <div className="">
               {state?.type === "update" ? (
-                <Controller
-                  control={control}
-                  name="date"
-                  render={({ field }) => (
-                    <DatePicker
-                      placeholderText="Select date"
-                      onChange={(date: Date | null) => {
-                        setSelectedDate(date);
-                      }}
-                      selected={handleDefaultDate()}
-                      value={
-                        selectedDate
-                          ? moment(selectedDate).format("MMMM DD, YYYY")
-                          : state?.bookingDetails?.date
-                      }
-                      showTimeSelect={true}
-                      minDate={new Date()}
-                    />
-                  )}
-                />
+                <>
+                  <TextLabel text={"Date"} />
+                  <Controller
+                    control={control}
+                    name="date"
+                    render={({ field }) => (
+                      <DatePicker
+                        placeholderText="Select date"
+                        onChange={(date: Date | null) => {
+                          setSelectedDate(date);
+                        }}
+                        selected={handleDefaultDate()}
+                        value={
+                          selectedDate
+                            ? moment(selectedDate).format("MMMM DD, YYYY")
+                            : state?.bookingDetails?.date
+                        }
+                        showTimeSelect={true}
+                        minDate={new Date()}
+                      />
+                    )}
+                  />
+                </>
               ) : (
-                <Controller
-                  control={control}
-                  name="date"
-                  render={({ field }) => (
-                    <DatePicker
-                      placeholderText="Select date"
-                      onChange={(date: Date | null) => {
-                        setSelectedDate(date);
-                      }}
-                      selected={selectedDate}
-                      value={
-                        selectedDate
-                          ? moment(selectedDate).format("MMMM DD, YYYY")
-                          : ""
-                      }
-                      showTimeSelect={true}
-                      minDate={new Date()}
-                    />
-                  )}
-                />
+                <>
+                  <TextLabel text={"Date"} />
+                  <Controller
+                    control={control}
+                    name="date"
+                    render={({ field }) => (
+                      <DatePicker
+                        onChange={(date: Date | null) => {
+                          setSelectedDate(date);
+                        }}
+                        selected={selectedDate}
+                        value={
+                          selectedDate
+                            ? moment(selectedDate).format("MMMM DD, YYYY")
+                            : ""
+                        }
+                        showTimeSelect={true}
+                        minDate={new Date()}
+                      />
+                    )}
+                  />
+                </>
               )}
-
-              <input
-                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-2"
-                id="time"
-                type="text"
-                placeholder="Time"
-                {...register("time", { required: false })}
-                value={
-                  selectedDate
-                    ? moment(selectedDate).format("h:mm a")
-                    : !_.isUndefined(state?.bookingDetails)
-                    ? state?.bookingDetails?.time
-                    : ""
-                }
-                readOnly
-              />
+              <div className="mt-2">
+                <TextLabel text={"Time"} />
+                <input
+                  className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="time"
+                  type="text"
+                  {...register("time", { required: false })}
+                  value={
+                    selectedDate
+                      ? moment(selectedDate).format("h:mm a")
+                      : !_.isUndefined(state?.bookingDetails)
+                      ? state?.bookingDetails?.time
+                      : ""
+                  }
+                  readOnly
+                />
+              </div>
             </div>
 
             <div className="flex justify-between">
-              <input
-                className="appearance-none border rounded w-45 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
-                id="from"
-                type="text"
-                placeholder="Sender"
-                {...register("from", { required: true })}
-              />
-              <input
-                className="appearance-none border rounded w-45 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
-                id="fromContact"
-                type="text"
-                placeholder="Contact No."
-                {...register("fromContact", { required: true })}
-              />
+              <div className="w-45 mt-2">
+                <TextLabel text={"Sender"} />
+                <input
+                  className="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full"
+                  id="from"
+                  type="text"
+                  {...register("from", { required: true })}
+                />
+              </div>
+              <div className="w-45 mt-2">
+                <TextLabel text={"Contact No."} />
+                <input
+                  className="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full"
+                  id="fromContact"
+                  type="text"
+                  {...register("fromContact", { required: true })}
+                />
+              </div>
             </div>
             <div className="flex justify-between">
+              <div className="w-45 mt-2">
+                <TextLabel text={"Receiver"} />
+                <input
+                  className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="to"
+                  type="text"
+                  {...register("to", { required: true })}
+                />
+              </div>
+              <div className="w-45 mt-2">
+                <TextLabel text={"Contact No."} />
+                <input
+                  className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="toContact"
+                  type="text"
+                  {...register("toContact", { required: true })}
+                />
+              </div>
+            </div>
+            <div className="mt-2">
+              <TextLabel text={"Location"} />
               <input
-                className="appearance-none border rounded w-45 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="to"
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="location"
                 type="text"
-                placeholder="Receiver"
-                {...register("to", { required: true })}
-              />
-              <input
-                className="appearance-none border rounded w-45 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="toContact"
-                type="text"
-                placeholder="Contact No."
-                {...register("toContact", { required: true })}
+                {...register("location", { required: true })}
               />
             </div>
-            <input
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline my-2"
-              id="location"
-              type="text"
-              placeholder="Location"
-              {...register("location", { required: true })}
-            />
-            <input
-              className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="amount"
-              type="text"
-              placeholder="Amount"
-              {...register("amount", { required: true })}
-            />
+            <div className="mt-2">
+              <TextLabel text={"Amount"} />
+              <input
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="amount"
+                type="text"
+                {...register("amount", { required: true })}
+              />
+            </div>
 
-            <button className="bg-defaultPurple w-full py-2 my-3 rounded-full text-white">
-              {state?.type === "update" ? "Update" : "Add"}
+            <div className="mt-8">
+              <TextLabel text={"Package details"} />
+              <table className="w-full mt-2 table-fixed">
+                <colgroup>
+                  <col width="185px"></col>
+                  <col width="92px"></col>
+                  <col width="30px"></col>
+                </colgroup>
+                <thead>
+                  <tr className="border-b border-defaultBlack">
+                    <th className="font-poppins text-xs text-opacity-60 text-defaultBlack font-normal text-left">
+                      Item Name
+                    </th>
+                    <th className="font-poppins text-xs text-opacity-60 text-defaultBlack font-normal text-left">
+                      Cost
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>{renderTable(packageDetailsTable)}</tbody>
+              </table>
+              <div className="flex justify-between mt-2">
+                <div className="w-45 mt-2">
+                  <input
+                    className="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full"
+                    id="itemName"
+                    type="text"
+                    placeholder="Item Name"
+                    value={itemInput.itemName}
+                    onChange={(e) => {
+                      setItemInput({ ...itemInput, itemName: e.target.value });
+                    }}
+                  />
+                </div>
+                <div className="w-45 mt-2">
+                  <input
+                    className="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full"
+                    id="itemCost"
+                    type="text"
+                    placeholder="Item Cost"
+                    value={itemInput.itemCost}
+                    onChange={(e) => {
+                      setItemInput({ ...itemInput, itemCost: e.target.value });
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <button
+                  type="button"
+                  className="w-1/2 py-2 my-3 rounded-full text-white bg-statusBlue"
+                  onClick={handleAddItem}
+                >
+                  + Add Item
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="bg-defaultPurple w-full py-2 my-3 rounded-full text-white"
+            >
+              {state?.type === "update" ? "Update Booking" : "Add Booking"}
             </button>
           </form>
         </div>

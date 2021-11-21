@@ -30,6 +30,7 @@ export interface IBookingItem {
   status: string;
   theme: string | undefined;
   referenceNumber: string;
+  packageDetails?: any;
 }
 
 export interface IAddBooking {
@@ -45,4 +46,5 @@ export interface IAddBooking {
   status: string;
   theme: string | undefined;
   referenceNumber: string;
+  packageDetails?: any;
 }
