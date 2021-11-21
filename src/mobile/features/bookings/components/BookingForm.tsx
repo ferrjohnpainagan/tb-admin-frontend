@@ -111,7 +111,7 @@ const BookingForm = () => {
                 placeholder="Status"
                 {...register("status", { required: false })}
               >
-                <option value="IN PROCESS">IN PROCESS</option>
+                <option value="PROCESSING">PROCESSING</option>
                 <option value="DELIVERED">DELIVERED</option>
                 <option value="CANCELLED">CANCELLED</option>
               </select>
