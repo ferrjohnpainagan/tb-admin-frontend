@@ -48,7 +48,7 @@ const BookingsList: React.FC<Props> = ({ setLoading }) => {
     groupBookingsByDate(bookings);
   }, []);
   return (
-    <div>
+    <div className="mb-16">
       <div className="px-4 text-3xl font-bold tracking-wide">All Bookings</div>
 
       <div className="p-4">
