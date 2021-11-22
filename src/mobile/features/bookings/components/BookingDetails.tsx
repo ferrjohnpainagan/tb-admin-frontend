@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation, useHistory } from "react-router";
+import _ from "lodash";
+
 import { IBookingItem } from "../../../../interfaces";
 
 import Loader from "../../../../shared/Loader";
@@ -16,16 +18,22 @@ interface Props {
 }
 
 const BookingDetails: React.FC<Props> = ({ loading, setLoading }) => {
+  const history = useHistory();
   const { state } = useLocation<stateType>();
   const [bookingDetails, setBookingDetails] = useState<IBookingItem>();
 
   useEffect(() => {
     setLoading(true);
-    setBookingDetails(state.data);
+    if (_.isUndefined(state?.data)) {
+      alert("Invalid booking");
+      history.replace("/admin");
+    } else {
+      setBookingDetails(state?.data);
 
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
   }, []);
   return loading ? (
     <Loader />

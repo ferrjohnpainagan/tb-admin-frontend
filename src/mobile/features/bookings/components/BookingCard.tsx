@@ -9,7 +9,7 @@ import Delivery from "../../../../img/delivery-small.svg";
 import TextLabel from "../../../../shared/TextLabel";
 import TextStatus from "../../../../shared/TextStatus";
 import CircleColor from "../../../../shared/CircleColor";
-import PackageDetailsTable from "./PackageDetailsTable";
+import BookingCostTable from "./BookingCostTable";
 
 interface BookingProps {
   /** Booking details object */
@@ -100,9 +100,9 @@ const BookingCard: React.FC<BookingProps> = ({ bookingDetails }) => {
 
         <div className="mt-2">
           <TextLabel text={"Package Details"} />
-          <PackageDetailsTable
+          <BookingCostTable
             type={"card"}
-            packageDetails={bookingDetails?.packageDetails}
+            itemsList={bookingDetails?.packageDetails}
           />
         </div>
 

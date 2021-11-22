@@ -7,8 +7,8 @@ import TextLabel from "../../../../shared/TextLabel";
 interface PackageDetailsProps {
   /** Type of table to be rendered */
   type: string;
-  /** Package details object */
-  packageDetails?: any;
+  /** Items list object */
+  itemsList?: any;
   /** Function for removing package detail item */
   handleRemoveItem?: any;
 }
@@ -18,9 +18,9 @@ interface IItemInput {
   addedBy: string;
 }
 
-const PackageDetailsTable: React.FC<PackageDetailsProps> = ({
+const BookingCostTable: React.FC<PackageDetailsProps> = ({
   type,
-  packageDetails,
+  itemsList,
   handleRemoveItem,
 }) => {
   const calcTotalCost = (items: any) => {
@@ -29,6 +29,7 @@ const PackageDetailsTable: React.FC<PackageDetailsProps> = ({
     items.map((item: any) => {
       total += parseFloat(item?.itemCost);
     });
+
     return total;
   };
 
@@ -53,7 +54,7 @@ const PackageDetailsTable: React.FC<PackageDetailsProps> = ({
             </tr>
           </thead>
           <tbody>
-            {packageDetails?.map((item: IItemInput, index: any) => {
+            {itemsList?.map((item: IItemInput, index: any) => {
               return (
                 <tr key={index} className="border-b border-defaultBlack">
                   <td>
@@ -97,7 +98,7 @@ const PackageDetailsTable: React.FC<PackageDetailsProps> = ({
               </tr>
             </thead>
             <tbody>
-              {packageDetails?.map((item: IItemInput, index: any) => {
+              {itemsList?.map((item: IItemInput, index: any) => {
                 return (
                   <tr key={index} className="border-b border-defaultBlack">
                     <td>
@@ -110,7 +111,7 @@ const PackageDetailsTable: React.FC<PackageDetailsProps> = ({
                         {item.itemCost}
                       </div>
                     </td>
-                    <td onClick={() => console.log(packageDetails[index])}>
+                    <td onClick={() => console.log(itemsList[index])}>
                       <img src={InfoIcon} alt="del" />
                     </td>
                   </tr>
@@ -121,7 +122,7 @@ const PackageDetailsTable: React.FC<PackageDetailsProps> = ({
           <div className="w-full flex flex-col items-end mt-2">
             <TextLabel text={"Items Cost"} />
             <div className="font-poppins text-xl text-purple3 font-medium">
-              Php {calcTotalCost(packageDetails)}
+              Php {calcTotalCost(itemsList ? itemsList : [])}
             </div>
           </div>
         </>
@@ -130,4 +131,4 @@ const PackageDetailsTable: React.FC<PackageDetailsProps> = ({
   );
 };
 
-export default PackageDetailsTable;
+export default BookingCostTable;

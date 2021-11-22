@@ -11,7 +11,7 @@ import _ from "lodash";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { IBookingItem } from "../../../../interfaces";
-import PackageDetailsTable from "./PackageDetailsTable";
+import BookingCostTable from "./BookingCostTable";
 import TextLabel from "../../../../shared/TextLabel";
 
 interface stateType {
@@ -330,9 +330,9 @@ const BookingForm = () => {
 
             <div className="mt-8">
               <TextLabel text={"Package details"} />
-              <PackageDetailsTable
+              <BookingCostTable
                 type={"form"}
-                packageDetails={packageDetailsTable}
+                itemsList={packageDetailsTable}
                 handleRemoveItem={handleRemoveItem}
               />
 
