@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 import DatePicker from "react-datepicker";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { addBooking, updateBooking } from "../../../../redux/booking/actions";
@@ -11,8 +11,8 @@ import _ from "lodash";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { IBookingItem } from "../../../../interfaces";
+import PackageDetailsTable from "./PackageDetailsTable";
 import TextLabel from "../../../../shared/TextLabel";
-import DeleteIcon from "../../../../img/delete-icon.svg";
 
 interface stateType {
   type: string;
@@ -36,16 +36,21 @@ interface IBookingInput {
 interface IItemInput {
   itemName: string;
   itemCost: string;
+  addedBy: string;
+  dateAdded: string;
 }
 
 const BookingForm = () => {
   const dispatch = useDispatch();
+  const { adminName } = useSelector((state: RootStateOrAny) => state.auth);
   const { state } = useLocation<stateType>();
   const [formType, setFormType] = useState<any>();
   const [packageDetailsTable, setPackageDetailsTable] = useState<any>([]);
   const [itemInput, setItemInput] = useState({
     itemName: "",
     itemCost: "",
+    addedBy: adminName,
+    dateAdded: moment(new Date()).format("MMMM DD, YYYY h:mm a"),
   });
   const [selectedDate, setSelectedDate] = useState<Date | undefined | null>(
     undefined
@@ -61,28 +66,6 @@ const BookingForm = () => {
     defaultValues: state?.type === "add" ? {} : state?.bookingDetails,
   });
 
-  const renderTable = (packageDetails: any) => {
-    return packageDetails.map((item: IItemInput, index: any) => {
-      return (
-        <tr key={index} className="border-b border-defaultBlack">
-          <td>
-            <div className="font-poppins text-m text-defaultBlack font-normal truncate w-36">
-              {item.itemName}
-            </div>
-          </td>
-          <td>
-            <div className="font-poppins text-m text-defaultBlack font-normal truncate w-20">
-              {item.itemCost}
-            </div>
-          </td>
-          <td onClick={() => handleRemoveItem(index)}>
-            <img src={DeleteIcon} alt="del" />
-          </td>
-        </tr>
-      );
-    });
-  };
-
   /** Handle render of datepicker component when updating */
   const handleDefaultDate = () => {
     if (_.isUndefined(selectedDate)) {
@@ -97,23 +80,26 @@ const BookingForm = () => {
   /** Handles add item in package details table */
   const handleAddItem = () => {
     if (itemInput.itemName !== "" || itemInput.itemCost !== "") {
+      setPackageDetailsTable([...packageDetailsTable, itemInput]);
       setItemInput({
         itemName: "",
         itemCost: "",
+        addedBy: adminName,
+        dateAdded: moment(new Date()).format("MMMM DD, YYYY h:mm a"),
       });
-      setPackageDetailsTable([...packageDetailsTable, itemInput]);
     } else {
       alert("Can't add empty items");
     }
   };
 
+  /** Handles package detail item remove */
   const handleRemoveItem = (indexRemove: number) => {
     let newItems = packageDetailsTable.filter(
       (item: IItemInput, index: number) => {
         return indexRemove !== index;
       }
     );
-    // console.log(newItems);
+
     setPackageDetailsTable(newItems);
   };
 
@@ -132,6 +118,7 @@ const BookingForm = () => {
           : state?.bookingDetails?.time,
         id: state?.bookingDetails?.id,
         referenceNumber: state?.bookingDetails?.referenceNumber,
+        packageDetails: packageDetailsTable,
       };
       dispatch(updateBooking(bookingData));
     } else {
@@ -152,8 +139,12 @@ const BookingForm = () => {
       setFormType("add");
     } else {
       setFormType(state?.type);
+      if (state?.type === "update") {
+        setPackageDetailsTable(state?.bookingDetails?.packageDetails);
+      }
     }
   }, []);
+
   return (
     <div className="bg-defaultPinkBg h-screen overflow-scroll mb-16">
       <div className="px-4 text-3xl font-bold tracking-wide">
@@ -339,24 +330,12 @@ const BookingForm = () => {
 
             <div className="mt-8">
               <TextLabel text={"Package details"} />
-              <table className="w-full mt-2 table-fixed">
-                <colgroup>
-                  <col width="185px"></col>
-                  <col width="92px"></col>
-                  <col width="30px"></col>
-                </colgroup>
-                <thead>
-                  <tr className="border-b border-defaultBlack">
-                    <th className="font-poppins text-xs text-opacity-60 text-defaultBlack font-normal text-left">
-                      Item Name
-                    </th>
-                    <th className="font-poppins text-xs text-opacity-60 text-defaultBlack font-normal text-left">
-                      Cost
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>{renderTable(packageDetailsTable)}</tbody>
-              </table>
+              <PackageDetailsTable
+                type={"form"}
+                packageDetails={packageDetailsTable}
+                handleRemoveItem={handleRemoveItem}
+              />
+
               <div className="flex justify-between mt-2">
                 <div className="w-45 mt-2">
                   <input

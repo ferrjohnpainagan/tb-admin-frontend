@@ -23,11 +23,7 @@ export const signInAdmin =
       );
 
       dispatch(authSlice.actions.SET_SIGNED_IN(true));
-      dispatch(
-        authSlice.actions.SET_ADMIN_NAME(
-          helper.handleDisplayName(response.user.email)
-        )
-      );
+      dispatch(authSlice.actions.SET_ADMIN_NAME(response.user.email));
       return { data: response, success: true };
     } catch (error) {
       return { data: error, success: false };

@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, RootStateOrAny } from "react-redux";
+import * as helper from "../../../../utils/helper";
 
 import BottomAppBar from "../../../../shared/BottomAppBar";
 import Header from "../../../../shared/Header";
@@ -16,7 +17,7 @@ const Wrapper: React.FC<any> = (props) => {
           type={"home"}
           showBackBtn={false}
           title={"Hi"}
-          accntName={adminName}
+          accntName={helper.handleDisplayName(adminName)}
         />
 
         <div className="p-7">
