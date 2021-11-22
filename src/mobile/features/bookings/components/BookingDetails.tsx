@@ -22,7 +22,7 @@ const BookingDetails: React.FC<Props> = ({ loading, setLoading }) => {
   useEffect(() => {
     setLoading(true);
     setBookingDetails(state.data);
-    console.log(state.data);
+
     setTimeout(() => {
       setLoading(false);
     }, 2000);

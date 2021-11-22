@@ -9,6 +9,7 @@ import Delivery from "../../../../img/delivery-small.svg";
 import TextLabel from "../../../../shared/TextLabel";
 import TextStatus from "../../../../shared/TextStatus";
 import CircleColor from "../../../../shared/CircleColor";
+import PackageDetailsTable from "./PackageDetailsTable";
 
 interface BookingProps {
   /** Booking details object */
@@ -22,7 +23,7 @@ interface BookingProps {
 const BookingCard: React.FC<BookingProps> = ({ bookingDetails }) => {
   const history = useHistory();
   return (
-    <div className="">
+    <div className="mb-16">
       <div className="flex flex-col bg-defaultWhite p-4 rounded-xl">
         <TextStatus status={bookingDetails?.status} />
 
@@ -90,12 +91,23 @@ const BookingCard: React.FC<BookingProps> = ({ bookingDetails }) => {
 
         <div className="flex">
           <div className="w-1/2">
-            <TextLabel text={"Amount"} />
+            <TextLabel text={"Package Rate"} />
             <div className="font-poppins text-xl text-purple3 font-medium">
               Php {bookingDetails?.amount}.00
             </div>
           </div>
-          <div className="w-1/2 flex justify-center items-center">
+        </div>
+
+        <div className="mt-2">
+          <TextLabel text={"Package Details"} />
+          <PackageDetailsTable
+            type={"card"}
+            packageDetails={bookingDetails?.packageDetails}
+          />
+        </div>
+
+        <div className="mt-2">
+          <div className="w-full flex justify-end items-center">
             <div
               className="w-28 p-1 font-poppins font-medium bg-purple3 text-defaultWhite rounded-2xl text-center"
               onClick={() => {
