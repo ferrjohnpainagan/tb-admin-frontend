@@ -39,12 +39,10 @@ const BookingCard: React.FC<BookingProps> = ({ bookingDetails }) => {
                       : Delivery
                   }
                 />
+                <div className="font-poppins text-xl text-defaultBlack  font-medium">
+                  {bookingDetails?.packageType}
+                </div>
               </div>
-            </div>
-
-            <div>
-              <TextLabel text={"Theme"} />
-              <CircleColor color={bookingDetails?.theme} />
             </div>
           </div>
 
@@ -86,6 +84,34 @@ const BookingCard: React.FC<BookingProps> = ({ bookingDetails }) => {
           <TextLabel text={"Location"} />
           <div className="font-poppins text-xl text-defaultBlack font-medium">
             {bookingDetails?.location}
+          </div>
+        </div>
+
+        <div className="mb-2">
+          <TextLabel text={"Theme/Motif"} />
+          <div className="font-poppins text-xl text-defaultBlack font-medium">
+            {bookingDetails?.theme}
+          </div>
+        </div>
+
+        <div className="mb-2">
+          <TextLabel text={"Greeting Card Message"} />
+          <div className="font-poppins text-xl text-defaultBlack font-medium">
+            {bookingDetails?.cardMessage}
+          </div>
+        </div>
+
+        <div className="mb-2">
+          <TextLabel text={"Background Music"} />
+          <div className="font-poppins text-xl text-defaultBlack font-medium">
+            {bookingDetails?.bgMusic}
+          </div>
+        </div>
+
+        <div className="mb-2">
+          <TextLabel text={"Celebrant's Age/Year Anniversary"} />
+          <div className="font-poppins text-xl text-defaultBlack font-medium">
+            {bookingDetails?.ageYear}
           </div>
         </div>
 

@@ -33,6 +33,7 @@ export interface IBookingItem {
   packageDetails?: any;
   cardMessage: string;
   bgMusic?: string;
+  ageYear?: string;
 }
 
 export interface IAddBooking {
@@ -51,4 +52,5 @@ export interface IAddBooking {
   packageDetails?: any;
   cardMessage: string;
   bgMusic?: string;
+  ageYear?: string;
 }

@@ -33,6 +33,7 @@ interface IBookingInput {
   theme: string | undefined;
   cardMessage: string;
   bgMusic?: string;
+  ageYear?: string;
 }
 
 interface IItemInput {
@@ -329,6 +330,16 @@ const BookingForm = () => {
                 id="amount"
                 type="text"
                 {...register("bgMusic", { required: false })}
+              />
+            </div>
+
+            <div className="mt-2">
+              <TextLabel text={"Celebrant's Age/Year Anniversary"} />
+              <input
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="amount"
+                type="text"
+                {...register("ageYear", { required: false })}
               />
             </div>
 
