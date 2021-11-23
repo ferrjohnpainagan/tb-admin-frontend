@@ -38,11 +38,11 @@ export const parseColorTheme = (color: string) => {
 /** Sets display name at home */
 export const handleDisplayName = (email: string) => {
   if (
-    email.toLowerCase().includes("irene") ||
-    email.toLowerCase().includes("ireng")
+    email?.toLowerCase().includes("irene") ||
+    email?.toLowerCase().includes("ireng")
   ) {
     return "Irengaslom";
-  } else if (email.toLowerCase().includes("estabillo")) {
+  } else if (email?.toLowerCase().includes("estabillo")) {
     return "Queenbeast";
   } else {
     return "Tita Bakers";

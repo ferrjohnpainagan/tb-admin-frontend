@@ -31,6 +31,8 @@ interface IBookingInput {
   amount: string | number | undefined;
   status: string;
   theme: string | undefined;
+  cardMessage: string;
+  bgMusic?: string;
 }
 
 interface IItemInput {
@@ -170,34 +172,16 @@ const BookingForm = () => {
             ) : null}
 
             <div className="flex justify-between">
-              <div className="w-45 my-2">
-                <TextLabel text={"Package Type"} />
+              <div className="w-full my-2">
+                <TextLabel text={"Package Availed"} />
                 <select
                   className="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full"
                   id="packageType"
                   {...register("packageType", { required: true })}
                 >
-                  <option value="">Type</option>
+                  <option value="">Select package</option>
                   <option value="cartrunk">Cartrunk</option>
                   <option value="delivery">Delivery</option>
-                </select>
-              </div>
-              <div className="w-45 my-2">
-                <TextLabel text={"Theme"} />
-                <select
-                  className="appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full"
-                  id="theme"
-                  {...register("theme", { required: false })}
-                >
-                  <option value="">Theme</option>
-                  <option value="blue">Blue</option>
-                  <option value="red">Red</option>
-                  <option value="green">Green</option>
-                  <option value="pink">Pink</option>
-                  <option value="gold">Gold</option>
-                  <option value="orange">Orange</option>
-                  <option value="violet">Violet</option>
-                  <option value="other">Other</option>
                 </select>
               </div>
             </div>
@@ -289,6 +273,7 @@ const BookingForm = () => {
                 />
               </div>
             </div>
+
             <div className="flex justify-between">
               <div className="w-45 mt-2">
                 <TextLabel text={"Receiver"} />
@@ -309,15 +294,44 @@ const BookingForm = () => {
                 />
               </div>
             </div>
+
             <div className="mt-2">
               <TextLabel text={"Location"} />
-              <input
+              <textarea
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="location"
-                type="text"
                 {...register("location", { required: true })}
               />
             </div>
+
+            <div className="mt-2">
+              <TextLabel text={"Theme/Motif"} />
+              <textarea
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="theme"
+                {...register("theme", { required: false })}
+              />
+            </div>
+
+            <div className="mt-2">
+              <TextLabel text={"Greeting Card Message"} />
+              <textarea
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="cardMessage"
+                {...register("cardMessage", { required: false })}
+              />
+            </div>
+
+            <div className="mt-2">
+              <TextLabel text={"Background Music"} />
+              <input
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="amount"
+                type="text"
+                {...register("bgMusic", { required: false })}
+              />
+            </div>
+
             <div className="mt-2">
               <TextLabel text={"Amount"} />
               <input

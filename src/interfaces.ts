@@ -31,6 +31,8 @@ export interface IBookingItem {
   theme: string | undefined;
   referenceNumber: string;
   packageDetails?: any;
+  cardMessage: string;
+  bgMusic?: string;
 }
 
 export interface IAddBooking {
@@ -47,4 +49,6 @@ export interface IAddBooking {
   theme: string | undefined;
   referenceNumber: string;
   packageDetails?: any;
+  cardMessage: string;
+  bgMusic?: string;
 }
