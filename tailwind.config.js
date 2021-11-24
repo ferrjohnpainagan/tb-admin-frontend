@@ -13,15 +13,6 @@ module.exports = {
         "cartrunk-big-card": "url('./img/cartrunk-big-card.png')",
       },
       colors: {
-        motif: {
-          blue: "#1e90ff",
-          red: "#ff0000",
-          green: "#008000",
-          pink: "#ff69b4",
-          gold: "#daa520",
-          orange: "#ff8c00",
-          violet: "#800080",
-        },
         defaultGray: "#E9E9E9",
         defaultPurple: "#402D8B",
         defaultPinkBg: "#DFD5DE",
@@ -33,6 +24,7 @@ module.exports = {
         statusRed: "#FB4B4E",
         purple2: "#AF88BE",
         purple3: "#A11E6C",
+        smokeLight: "#f5f5f5",
       },
       fontSize: {
         tiny: "10px",

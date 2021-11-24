@@ -1,6 +1,13 @@
 import { Dispatch } from "redux";
 import { push, replace } from "connected-react-router";
-import { collection, addDoc, getDocs, setDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  setDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "../../services/firebase";
 
 import bookingSlice from "./slice";
@@ -31,7 +38,9 @@ export const getAllBookings = () => async (dispatch: Dispatch) => {
     });
 
     dispatch(bookingSlice.actions.SET_ALL_BOOKINGS(bookingsList));
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const updateBooking =
@@ -40,5 +49,17 @@ export const updateBooking =
       await setDoc(doc(db, "bookings", data.id), data);
       dispatch(bookingSlice.actions.UPDATE_ALL_BOOKINGS(data));
       dispatch(replace("/admin/booking#list"));
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+export const deleteBooking = (id: string) => async (dispatch: Dispatch) => {
+  try {
+    await deleteDoc(doc(db, "bookings", id));
+    dispatch(bookingSlice.actions.DELETE_BOOKING(id));
+    dispatch(replace("/admin/booking#list"));
+  } catch (error) {
+    console.log(error);
+  }
+};

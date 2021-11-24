@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useLocation, useHistory } from "react-router";
 import _ from "lodash";
+import { deleteBooking } from "../../../../redux/booking/actions";
 
 import { IBookingItem } from "../../../../interfaces";
 
@@ -18,9 +20,30 @@ interface Props {
 }
 
 const BookingDetails: React.FC<Props> = ({ loading, setLoading }) => {
+  const dispatch = useDispatch();
   const history = useHistory();
+  const [show, setShow] = useState({
+    deleteModal: false,
+  });
   const { state } = useLocation<stateType>();
   const [bookingDetails, setBookingDetails] = useState<IBookingItem>();
+
+  const openModal = () => {
+    setShow({ deleteModal: true });
+  };
+
+  const closeModal = () => {
+    setShow({ deleteModal: false });
+  };
+
+  const handleDelete = () => {
+    setLoading(true);
+    setTimeout(() => {
+      dispatch(deleteBooking(bookingDetails.id));
+      closeModal();
+      setLoading(false);
+    }, 2000);
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -49,7 +72,13 @@ const BookingDetails: React.FC<Props> = ({ loading, setLoading }) => {
           </div>
         </div>
 
-        <BookingCard bookingDetails={bookingDetails} />
+        <BookingCard
+          bookingDetails={bookingDetails}
+          show={show}
+          openModal={openModal}
+          closeModal={closeModal}
+          handleDelete={handleDelete}
+        />
       </div>
     </div>
   );

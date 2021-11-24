@@ -10,17 +10,29 @@ import TextLabel from "../../../../shared/TextLabel";
 import TextStatus from "../../../../shared/TextStatus";
 import CircleColor from "../../../../shared/CircleColor";
 import BookingCostTable from "./BookingCostTable";
+import DeleteIconRed from "../../../../img/delete-icon-red.svg";
+import Modal from "../../../../shared/Modal";
 
 interface BookingProps {
   /** Booking details object */
   bookingDetails: IBookingItem;
+  show?: any;
+  handleDelete?: any;
+  openModal?: any;
+  closeModal?: any;
 }
 
 /** Component for the Booking card details
  *
  * @component
  */
-const BookingCard: React.FC<BookingProps> = ({ bookingDetails }) => {
+const BookingCard: React.FC<BookingProps> = ({
+  bookingDetails,
+  show,
+  handleDelete,
+  openModal,
+  closeModal,
+}) => {
   const history = useHistory();
   return (
     <div className="mb-16">
@@ -133,7 +145,15 @@ const BookingCard: React.FC<BookingProps> = ({ bookingDetails }) => {
         </div>
 
         <div className="mt-2">
-          <div className="w-full flex justify-end items-center">
+          <div className="w-full flex justify-between items-center">
+            <div
+              className="w-28 p-1 font-poppins font-medium bg-statusRed text-defaultWhite rounded-2xl text-center"
+              onClick={() => {
+                openModal();
+              }}
+            >
+              DELETE
+            </div>
             <div
               className="w-28 p-1 font-poppins font-medium bg-purple3 text-defaultWhite rounded-2xl text-center"
               onClick={() => {
@@ -148,6 +168,15 @@ const BookingCard: React.FC<BookingProps> = ({ bookingDetails }) => {
           </div>
         </div>
       </div>
+      <Modal
+        show={show}
+        title={"Are you sure you want to delete this booking?"}
+        message={"Once deleted, you can never retrieve it."}
+        leftBtn={"CANCEL"}
+        rightBtn={"DELETE"}
+        leftBtnFn={closeModal}
+        rightBtnFn={handleDelete}
+      />
     </div>
   );
 };
