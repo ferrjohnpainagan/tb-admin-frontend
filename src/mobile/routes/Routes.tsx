@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import { Route, RouteComponentProps, Redirect } from "react-router-dom";
-import { signOutAdmin } from "../../redux/auth/actions";
+import { signOutAdmin, signInAdmin } from "../../redux/auth/actions";
 import * as helper from "../../utils/helper";
+import jwtDecode from "jwt-decode";
+import moment from "moment";
 
 import { IPage, IRoute } from "../../interfaces";
 
@@ -12,11 +14,15 @@ const Routes: React.FC<IRoute> = ({
   isPrivate,
 }) => {
   const dispatch = useDispatch();
-  const { isSignedIn } = useSelector((state: RootStateOrAny) => state.auth);
+  const { isSignedIn, loginExp } = useSelector(
+    (state: RootStateOrAny) => state.auth
+  );
 
-  useEffect(() => {
-    // dispatch(signOutAdmin());
-  }, []);
+  let ms = moment(loginExp, "MM/DD/YYYY hh:mm:ss a").diff(
+    moment(moment(), "MM/DD/YYYY hh:mm:ss a")
+  );
+
+  useEffect(() => {}, []);
 
   /** Redirect user to login page
    * if user opens a private page while not signed in
@@ -33,6 +39,10 @@ const Routes: React.FC<IRoute> = ({
     if (path === "/admin/auth") {
       return <Redirect to="/admin/home" />;
     }
+  }
+
+  if (ms < 0) {
+    dispatch(signOutAdmin());
   }
 
   return (

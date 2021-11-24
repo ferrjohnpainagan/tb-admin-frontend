@@ -19,8 +19,8 @@ const Login = () => {
     formState: { errors },
   } = useForm<LoginInputs>();
 
-  const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
-    let response = await dispatch(signInAdmin(data));
+  const onSubmit: SubmitHandler<LoginInputs> = (data) => {
+    dispatch(signInAdmin(data));
   };
 
   useEffect(() => {}, []);
