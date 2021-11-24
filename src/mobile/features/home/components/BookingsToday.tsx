@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
+import moment from "moment";
 import * as helper from "../../../../utils/helper";
 import { getAllBookings } from "../../../../redux/booking/actions";
 import { IBookingItem } from "../../../../interfaces";
@@ -11,9 +12,25 @@ const BookingsToday = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { bookings } = useSelector((state: RootStateOrAny) => state.bookings);
+  const [upcomingBookings, setUpcomingBookings] = useState<any>(bookings);
+
+  /** Filters all bookings to display only future bookings */
+  const filterUpcomingBookings = () => {
+    let upcomingBookingsList: any = [];
+    bookings.map((booking: any) => {
+      if (moment(booking.date + " " + booking.time).isAfter(new Date())) {
+        upcomingBookingsList.push(booking);
+      } else {
+        return;
+      }
+    });
+
+    setUpcomingBookings(upcomingBookingsList);
+  };
 
   useEffect(() => {
     dispatch(getAllBookings());
+    filterUpcomingBookings();
   }, []);
   return (
     <>
@@ -31,8 +48,8 @@ const BookingsToday = () => {
             SEE ALL
           </div>
         </div>
-        {!!bookings &&
-          bookings.map((booking: IBookingItem, index: any) => {
+        {!!upcomingBookings &&
+          upcomingBookings.map((booking: IBookingItem, index: any) => {
             if (index <= 5) {
               return (
                 <div
