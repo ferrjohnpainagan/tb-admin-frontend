@@ -32,6 +32,7 @@ const BottomAppBar = () => {
       <div className="w-screen h-14 bg-defaultGray absolute bottom-0 flex justify-between items-center px-16 mt-10 rounded-3xl">
         <div className="w-14 flex justify-center">
           <img
+            className="w-8"
             src={activeLink("home") ? HomeActive : HomeInactive}
             onClick={() => {
               dispatch(getAllBookings());
@@ -49,6 +50,7 @@ const BottomAppBar = () => {
         </div>
         <div className="w-14 flex justify-center">
           <img
+            className="w-6"
             src={
               activeLink("booking") ? AllBookingsActive : AllBookingsInactive
             }
