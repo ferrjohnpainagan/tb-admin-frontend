@@ -44,5 +44,8 @@ export const signOutAdmin = () => (dispatch: Dispatch) => {
   try {
     signOut(auth);
     dispatch(authSlice.actions.SET_SIGNED_IN(false));
+    dispatch(authSlice.actions.SET_TOKEN(null));
+    dispatch(authSlice.actions.SET_LOGIN_EXP(new Date()));
+    window.location.replace("/admin/auth");
   } catch (error) {}
 };

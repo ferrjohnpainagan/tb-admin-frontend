@@ -1,8 +1,11 @@
 import React from "react";
 import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
+import { signOutAdmin } from "../redux/auth/actions";
 
 import BackBtn from "../img/back-btn.png";
 import Logo from "../img/sorpresa-logo.png";
+import LogoutIcon from "../img/logout-icon.svg";
 
 interface HeaderProps {
   /** Type of header to be rendered */
@@ -23,7 +26,9 @@ interface HeaderProps {
  */
 
 const Header = (props: HeaderProps) => {
+  const dispatch = useDispatch();
   const history = useHistory();
+
   return (
     <>
       <div
@@ -50,17 +55,24 @@ const Header = (props: HeaderProps) => {
           </div>
         ) : null}
         <div className="flex">
-          <div className="px-2 text-3xl font-bold tracking-wide">
+          <div className="px-1 text-2xl font-bold tracking-wide">
             {props.title}
           </div>
           {props.type === "home" ? (
-            <div className="px-2 text-3xl font-bold text-pinkAccntName tracking-wide">
+            <div className="px-1 text-2xl font-bold text-pinkAccntName tracking-wide">
               {props.accntName + "!"}
             </div>
           ) : null}
         </div>
-        <div className="w-11">
-          <img src={Logo} alt="logo" />
+        <div className="flex justify-around w-24">
+          <div className="w-10">
+            <img src={Logo} alt="logo" />
+          </div>
+          <img
+            src={LogoutIcon}
+            alt="logout"
+            onClick={() => dispatch(signOutAdmin())}
+          />
         </div>
       </div>
     </>
