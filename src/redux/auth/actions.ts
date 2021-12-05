@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { provider, auth, app } from "../../services/firebase";
+import { auth } from "../../services/firebase";
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import moment from "moment";
 import jwtDecode from "jwt-decode";
@@ -9,10 +9,8 @@ import * as helper from "../../utils/helper";
 
 let now = moment(new Date());
 
-export const getRegisteredAdmin = () => async () => {
-  try {
-    let response = await getAuth(app);
-  } catch (error) {}
+export const getRegisteredAdmin = (token: string) => async () => {
+  // await getAuth().verifyIdToken()
 };
 
 export const signInAdmin =
@@ -44,8 +42,8 @@ export const signOutAdmin = () => (dispatch: Dispatch) => {
   try {
     signOut(auth);
     dispatch(authSlice.actions.SET_SIGNED_IN(false));
-    dispatch(authSlice.actions.SET_TOKEN(null));
-    dispatch(authSlice.actions.SET_LOGIN_EXP(new Date()));
-    window.location.replace("/admin/auth");
+    // dispatch(authSlice.actions.SET_TOKEN(null));
+    // dispatch(authSlice.actions.SET_LOGIN_EXP(new Date()));
+    // window.location.replace("/admin/auth");
   } catch (error) {}
 };
